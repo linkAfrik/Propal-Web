@@ -48,7 +48,6 @@ Sur un autre hébergeur, renseigner l'adresse d'un service de formulaires (Forms
 Le brief marque plusieurs éléments [TO CONFIRM]. Ajouter `#review` à l'adresse de n'importe quelle page (ex. `about.html#review`) pour les afficher encadrés en orange :
 
 - Contrat de 5 M EUR (accueil, chiffres clés, et page About)
-- « UK-registered, operating from Abidjan » (About et pied de page)
 
 Autres points :
 

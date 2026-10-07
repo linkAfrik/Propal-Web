@@ -3,14 +3,14 @@
     "index.html": "COPHIR | Développement commercial Oil & Gas en Afrique de l'Ouest",
     "local-companies.html": "Entreprises locales Oil & Gas : partenaires techniques et financement | COPHIR",
     "international-contractors.html": "Appels d'offres pétroliers et partenaire local en Afrique de l'Ouest | COPHIR",
-    "about.html": "À propos de COPHIR | Développement commercial pétrole et gaz, Abidjan",
-    "contact.html": "Contacter COPHIR | Oil & Gas en Côte d'Ivoire et en Afrique de l'Ouest"
+    "about.html": "À propos de COPHIR | Développement commercial pétrole et gaz en Afrique de l'Ouest",
+    "contact.html": "Contacter COPHIR | Oil & Gas en Afrique de l'Ouest, Côte d'Ivoire et Togo"
   },
   "descriptions": {
     "index.html": "COPHIR identifie les opportunités du secteur pétrolier et gazier en Afrique de l'Ouest et réunit les partenaires locaux et internationaux qui permettent de les remporter.",
-    "local-companies.html": "Entreprise locale ou porteur de projet en Côte d'Ivoire : COPHIR vous apporte l'équipement, le partenaire technique, les références et le montage pour remporter vos appels d'offres Oil & Gas.",
+    "local-companies.html": "Entreprise locale ou porteur de projet en Afrique de l'Ouest : COPHIR vous apporte l'équipement, le partenaire technique, les références et le montage pour remporter vos appels d'offres Oil & Gas.",
     "international-contractors.html": "Entreprises internationales du pétrole et du gaz : COPHIR vous apporte des appels d'offres qualifiés en Afrique de l'Ouest et construit avec vous un montage conforme au contenu local.",
-    "about.html": "COPHIR qualifie les opportunités, identifie ce qui manque et réunit les bonnes entreprises. Plus de dix ans d'expérience du marché pétrolier et gazier ivoirien.",
+    "about.html": "COPHIR, entreprise britannique qui opère en Afrique de l'Ouest, qualifie les opportunités, identifie ce qui manque et réunit les bonnes entreprises. Plus de dix ans d'expérience du marché pétrolier et gazier ivoirien.",
     "contact.html": "Soumettez une opportunité ou présentez vos capacités à COPHIR. Confidentialité garantie : rien n'est partagé sans votre accord."
   },
   "org": "Cabinet de développement commercial spécialisé dans le pétrole et le gaz en Afrique de l'Ouest.",
@@ -35,17 +35,10 @@
     "For International Contractors": "Entreprises internationales",
     "About": "À propos",
     "Contact": "Contact",
-    "Bring us an opportunity": "Soumettre une opportunité",
-    "Show us your capabilities": "Présenter vos capacités",
-    "West African Oil &amp; Gas business development. Operating from Abidjan.": "Développement commercial Oil &amp; Gas en Afrique de l'Ouest, depuis Abidjan.",
     "We find the opportunities and the partners that win you more business in West African Oil &amp; Gas.": "Nous trouvons les opportunités et les partenaires qui font gagner des marchés dans le pétrole et le gaz en Afrique de l'Ouest.",
-    "UK-registered, operating from Abidjan.": "Société immatriculée au Royaume-Uni, basée à Abidjan.",
     "Navigate": "Navigation",
     "Start a conversation": "Prendre contact",
     "&copy; <span data-year>2026</span> COPHIR. Oil &amp; Gas business development in West Africa. All rights reserved.": "&copy; <span data-year>2026</span> COPHIR. Développement commercial Oil &amp; Gas en Afrique de l'Ouest. Tous droits réservés.",
-    "Abidjan · Côte d'Ivoire · West Africa": "Abidjan · Côte d'Ivoire · Afrique de l'Ouest",
-    "Abidjan<br>Côte d'Ivoire<br>West Africa": "Abidjan<br>Côte d'Ivoire<br>Afrique de l'Ouest",
-    "Port of Abidjan<br>Côte d'Ivoire": "Port d'Abidjan<br>Côte d'Ivoire",
     "Côte d'Ivoire": "Côte d'Ivoire",
     "Do you want more business in West Africa?": "Vous visez de nouveaux marchés en Afrique de l'Ouest&nbsp;?",
     "<span class=\"accent\">West African Oil &amp; Gas:</span> we find the opportunities and the partners that win you more business.": "<span class=\"accent\">Pétrole et gaz en Afrique de l'Ouest&nbsp;:</span> nous trouvons les opportunités et les partenaires qui vous font gagner des marchés.",
@@ -207,7 +200,6 @@
     "United States": "États-Unis",
     "French &amp; English": "Français &amp; anglais",
     "COPHIR works with a network built <strong>deal by deal</strong>: <strong>local companies</strong>, <strong>project holders</strong>, <strong>international contractors</strong>, <strong>specialists</strong> and <strong>suppliers</strong>, qualified on what they can <strong>really deliver</strong>.": "COPHIR s'appuie sur un réseau constitué <strong>affaire après affaire</strong>&nbsp;: <strong>entreprises locales</strong>, <strong>porteurs de projets</strong>, <strong>entreprises internationales</strong>, <strong>spécialistes</strong> et <strong>fournisseurs</strong>, tous sélectionnés sur ce qu'ils savent <strong>réellement exécuter</strong>.",
-    "COPHIR is UK-registered and operates from Abidjan across West Africa.": "COPHIR est immatriculée au Royaume-Uni et intervient depuis Abidjan dans toute l'Afrique de l'Ouest.",
     "How we work": "Nos engagements",
     "Our four non-negotiable rules.": "Quatre règles que nous ne négocions pas.",
     "Confidential by default.": "Confidentialité d'office.",
@@ -242,6 +234,15 @@
     "Confidentiality and non-circumvention terms before any disclosure": "Accord de confidentialité et de non-contournement avant tout échange d'informations",
     "Selective: we focus on opportunities worth pursuing": "Sélectivité&nbsp;: seules les opportunités sérieuses sont retenues",
     "Write to us": "Écrivez-nous",
-    "Oil storage tank maintenance · Pipeline welding · Terminals": "Entretien de bacs pétroliers · Soudage de pipelines · Terminaux"
+    "Oil storage tank maintenance · Pipeline welding · Terminals": "Entretien de bacs pétroliers · Soudage de pipelines · Terminaux",
+    "You have an opportunity": "Vous avez une opportunité",
+    "You have capabilities": "Vous avez le savoir-faire",
+    "Send my request": "Envoyer ma demande",
+    "Côte d'Ivoire · Togo<br>West Africa": "Côte d'Ivoire · Togo<br>Afrique de l'Ouest",
+    "COPHIR is a UK-registered company focused on West Africa, with operational presence across Côte d'Ivoire and Togo.": "COPHIR est une entreprise britannique qui opère en Afrique de l'Ouest, avec une présence opérationnelle en Côte d'Ivoire et au Togo.",
+    "West African Oil &amp; Gas business development. UK-registered, active across Côte d'Ivoire and Togo.": "Développement commercial Oil &amp; Gas en Afrique de l'Ouest. Entreprise britannique, active en Côte d'Ivoire et au Togo.",
+    "UK-registered. Connected across Côte d'Ivoire, Togo and the wider West African market.": "Une entreprise britannique qui opère en Afrique de l'Ouest, entre la Côte d'Ivoire et le Togo.",
+    "Côte d'Ivoire · Togo · West Africa": "Côte d'Ivoire · Togo · Afrique de l'Ouest",
+    "Turn sound on": "Activer le son"
   }
 }

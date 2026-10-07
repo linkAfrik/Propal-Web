@@ -159,13 +159,42 @@
   if (vslFrame) {
     var player = vslFrame.querySelector("[data-vsl-player]");
     var video = player.querySelector("video");
-    vslFrame.querySelector("[data-vsl-play]").addEventListener("click", function () {
+    var unmuteBtn = vslFrame.querySelector("[data-vsl-unmute]");
+    var engaged = false;          // the visitor chose to watch with sound
+    var showPlayer = function () {
       player.hidden = false;
       vslFrame.classList.add("is-playing");
+    };
+    var playWithSound = function (fromStart) {
+      engaged = true;
+      if (fromStart) video.currentTime = 0;
+      video.muted = false;
+      showPlayer();
+      unmuteBtn.hidden = true;
       var p = video.play();
       if (p && p.catch) p.catch(function () {});
-      video.focus();
+    };
+    // Browsers only allow silent autoplay: the film starts muted, with French
+    // subtitles, when the section comes into view, and offers sound on demand.
+    var autoplay = function () {
+      if (engaged || !video.paused) return;
+      video.muted = true;
+      var p = video.play();
+      if (p && p.then) {
+        p.then(function () { showPlayer(); unmuteBtn.hidden = false; }).catch(function () {});
+      }
+    };
+    vslFrame.querySelector("[data-vsl-play]").addEventListener("click", function () { playWithSound(false); video.focus(); });
+    unmuteBtn.addEventListener("click", function () { playWithSound(true); });
+    video.addEventListener("volumechange", function () {
+      if (!video.muted && !engaged) { engaged = true; unmuteBtn.hidden = true; }
     });
+    if ("IntersectionObserver" in window && !reduceMotion) {
+      new IntersectionObserver(function (en) {
+        if (en[0].isIntersecting) autoplay();
+        else if (!engaged && !video.paused) video.pause();   // a silent preview stops when out of view
+      }, { threshold: 0.5 }).observe(vslFrame);
+    }
     // Subtitles: if the <track> cannot be loaded (a host serving .vtt with the
     // wrong type), read the file ourselves and add the cues.
     var trackEl = video.querySelector("track");

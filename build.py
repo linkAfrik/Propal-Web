@@ -36,6 +36,7 @@ ICONS = {
     "pin": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>',
     "play": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a.8.8 0 0 0 1.2.7l12.2-7.5a.8.8 0 0 0 0-1.4L8.2 3.8A.8.8 0 0 0 7 4.5z"/></svg>',
     "x": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+    "sound": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>',
     "mail": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg>',
 }
 
@@ -75,7 +76,7 @@ def head(meta, page, lang, fr):
     title = fr["titles"].get(page, meta["title"]) if lang == "fr" else meta["title"]
     desc = fr["descriptions"].get(page, meta["description"]) if lang == "fr" else meta["description"]
     prefix = "../" if lang == "fr" else ""
-    image = SITE_URL + "/" + meta.get("image", "assets/img/abidjan.jpg")
+    image = SITE_URL + "/" + meta.get("image", "assets/img/about-vision.jpg")
     ld = {
         "@context": "https://schema.org",
         "@type": "Organization",
@@ -84,8 +85,7 @@ def head(meta, page, lang, fr):
         "logo": SITE_URL + "/assets/logo/cophir-logo.png",
         "email": "contact@cophir.com",
         "description": fr["org"] if lang == "fr" else "Business development firm specialising in West African Oil & Gas.",
-        "areaServed": "West Africa",
-        "address": {"@type": "PostalAddress", "addressLocality": "Abidjan", "addressCountry": "CI"},
+        "areaServed": ["West Africa", "Côte d'Ivoire", "Togo"],
     }
     return f"""<!doctype html>
 <html lang="{lang}">

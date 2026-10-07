@@ -803,3 +803,15 @@ p + p { margin-top: 0; }
 .sector:hover .sector__body { background: var(--navy-800); border-color: var(--orange); }
 .sector__body .sector__bar { display: none; }
 @media (max-width: 560px) { .sector { min-height: 0; } }
+/* About pillars: plain deep-navy ground now that the offshore picture leads the home page */
+.pillars-wrap { background: radial-gradient(120% 100% at 85% 0%, #15304f 0%, var(--navy-950) 62%); }
+/* VSL: "turn sound on" pill shown while the film autoplays muted */
+.vsl__unmute {
+  position: absolute; left: 18px; top: 18px; z-index: 4; display: inline-flex; align-items: center; gap: 10px;
+  padding: 11px 18px 11px 14px; border-radius: 999px; border: 0; cursor: pointer;
+  background: var(--orange); color: var(--navy-950); font: 700 .8rem/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase;
+  box-shadow: 0 12px 30px -10px rgba(0,0,0,.6); animation: pulsePill 2.4s ease-in-out infinite;
+}
+.vsl__unmute svg { width: 20px; height: 20px; }
+.vsl__unmute:hover { background: #ff9445; }
+@keyframes pulsePill { 0%, 100% { box-shadow: 0 0 0 0 rgba(242,128,44,.55), 0 12px 30px -10px rgba(0,0,0,.6); } 50% { box-shadow: 0 0 0 10px rgba(242,128,44,0), 0 12px 30px -10px rgba(0,0,0,.6); } }
