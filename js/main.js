@@ -174,15 +174,38 @@
       var p = video.play();
       if (p && p.catch) p.catch(function () {});
     };
-    // Browsers only allow silent autoplay: the film starts muted, with French
-    // subtitles, when the section comes into view, and offers sound on demand.
+    // Autoplay with sound when the section comes into view. Browsers only
+    // allow sound once the visitor has clicked or tapped the page; until then
+    // the film plays muted (French subtitles on) and the very first click or
+    // tap anywhere turns the sound on and restarts it from the beginning.
+    var waitForGesture = function () {
+      var onGesture = function (e) {
+        if (engaged || e.target.closest("[data-vsl-unmute], video")) return cleanup();
+        if (!video.paused && video.muted) playWithSound(true);
+        cleanup();
+      };
+      var cleanup = function () {
+        ["pointerdown", "keydown", "touchend"].forEach(function (ev) { document.removeEventListener(ev, onGesture, true); });
+      };
+      ["pointerdown", "keydown", "touchend"].forEach(function (ev) { document.addEventListener(ev, onGesture, true); });
+    };
     var autoplay = function () {
       if (engaged || !video.paused) return;
-      video.muted = true;
+      video.muted = false;
       var p = video.play();
-      if (p && p.then) {
-        p.then(function () { showPlayer(); unmuteBtn.hidden = false; }).catch(function () {});
-      }
+      if (!p || !p.then) return;
+      p.then(function () {
+        engaged = true;
+        showPlayer();
+        unmuteBtn.hidden = true;
+      }).catch(function () {
+        video.muted = true;
+        video.play().then(function () {
+          showPlayer();
+          unmuteBtn.hidden = false;
+          waitForGesture();
+        }).catch(function () {});
+      });
     };
     vslFrame.querySelector("[data-vsl-play]").addEventListener("click", function () { playWithSound(false); video.focus(); });
     unmuteBtn.addEventListener("click", function () { playWithSound(true); });
