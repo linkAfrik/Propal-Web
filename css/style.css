@@ -777,3 +777,20 @@ strong { font-weight: 600; }
 p + p { margin-top: 0; }
 .cta-band p { margin-top: 20px; }
 .cta-band .btn-row { margin-top: 36px; }
+
+/* Sector cards: text sits on its own dark panel so it reads at first glance */
+.sector { min-height: 380px; padding: 0; }
+.sector::before { background: linear-gradient(0deg, rgba(6,16,29,.92) 0%, rgba(6,16,29,.55) 42%, rgba(6,16,29,0) 72%); }
+.sector__body {
+  position: relative; z-index: 1; display: grid; gap: 8px;
+  margin: 0 12px 12px; padding: 18px 18px 20px; border-radius: 6px;
+  background: rgba(6, 16, 29, .82); border: 1px solid rgba(255, 255, 255, .1);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  transition: background .4s var(--ease), border-color .4s var(--ease);
+}
+.sector:hover .sector__body { background: rgba(6, 16, 29, .9); border-color: rgba(242, 128, 44, .45); }
+.sector__body .sector__bar { margin-bottom: 4px; }
+.sector .sector__idx { color: var(--orange); font-size: .75rem; }
+.sector h3 { margin: 0; font-size: 1.32rem; color: #fff; line-height: 1.15; }
+.section--mist .sector p, .sector p { color: #e8edf3; font-size: .97rem; line-height: 1.55; font-weight: 500; }
+@media (max-width: 560px) { .sector { min-height: 300px; } }
