@@ -81,16 +81,30 @@
   </div>
 </section>
 
-<section class="vsl" aria-labelledby="vsl-title">
+<section class="vsl" id="film" aria-labelledby="vsl-title">
   <div class="vsl__grid">
-    <button class="vsl__frame" type="button" data-video-open aria-label="Play the COPHIR film (1 min 36)">
-      <img src="assets/img/port-worker.jpg" alt="" loading="lazy">
-      <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a.8.8 0 0 0 1.2.7l12.2-7.5a.8.8 0 0 0 0-1.4L8.2 3.8A.8.8 0 0 0 7 4.5z"/></svg></span>
-    </button>
+    <div class="vsl__frame" data-vsl>
+      <img class="vsl__poster" src="assets/img/port-worker.jpg" alt="" loading="lazy">
+      <button class="vsl__start" type="button" data-vsl-play aria-label="Play the COPHIR film (1 min 36)">
+        <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a.8.8 0 0 0 1.2.7l12.2-7.5a.8.8 0 0 0 0-1.4L8.2 3.8A.8.8 0 0 0 7 4.5z"/></svg></span>
+      </button>
+      <div class="vsl__player" data-vsl-player hidden>
+        <div class="vsl__bar">
+          <span class="vsl__bar-title">COPHIR · <span data-t="fcf500c6f1">The missing half</span></span>
+          <button class="vsl__btn" type="button" data-vsl-back aria-label="Back to the film section"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+          <button class="vsl__btn" type="button" data-vsl-close aria-label="Close the film"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        </div>
+        <video id="vsl-video" controls playsinline preload="metadata" poster="assets/img/port-worker.jpg">
+          <source src="assets/video/cophir-vsl.mp4" type="video/mp4">
+          <track kind="subtitles" srclang="fr" label="Français" src="assets/video/cophir-vsl.fr.vtt" default>
+        </video>
+      </div>
+    </div>
     <div class="vsl__copy" data-reveal>
       <p class="eyebrow" data-t="fcf500c6f1">The missing half</p>
       <h2 class="h-2" id="vsl-title" data-t="5d5fd3ab94">See how COPHIR connects opportunities with capability.</h2>
       <p class="vsl__meta"><b data-t="393a56e455">Watch the film</b><span></span>1:36</p>
+      <p class="vsl__hint" data-t="b203ccea11">With French subtitles. Keep scrolling while it plays: the film follows you in a small player.</p>
       <p class="fmw">Find<i>.</i> Match<i>.</i> Win<i>.</i></p>
     </div>
   </div>
@@ -156,13 +170,13 @@
       <h2 class="h-1" data-t="f3d40dbf12">Where do you stand?</h2>
     </div>
     <div class="choices">
-      <article class="choice choice--opp" data-reveal style="--d:0">
+      <article data-tilt class="choice choice--opp" data-reveal style="--d:0">
         <p class="eyebrow eyebrow--plain" style="color:var(--blue-soft)" data-t="574b3f5267">Local companies &amp; project holders</p>
         <h3 data-t="8c09aad9ff">You have an opportunity.</h3>
         <p data-t="99bb5b60b8">Bring us what you are working on. We help find what is missing to pursue it.</p>
         <a class="btn btn--blue" href="contact.html#opportunity"><span data-t="bd0b268294">Bring us an opportunity</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </article>
-      <article class="choice choice--cap" data-reveal style="--d:1">
+      <article data-tilt class="choice choice--cap" data-reveal style="--d:1">
         <p class="eyebrow eyebrow--plain" data-t="b4a265de5d">International contractors &amp; suppliers</p>
         <h3 data-t="e9c2af5f2f">You have capabilities.</h3>
         <p data-t="bcbd4df449">Show us what you can deliver. We connect you with opportunities where those capabilities can win business.</p>
@@ -255,37 +269,37 @@
       <p class="lead muted" data-t="a64f5043d5">We work where we know the market, the players and what it takes to win.</p>
     </div>
     <div class="sectors">
-      <article class="sector" data-reveal style="--d:0">
+      <article class="sector" data-tilt data-reveal style="--d:0">
         <img src="assets/img/subsea.jpg" alt="" loading="lazy">
         <span class="sector__bar"></span><span class="sector__idx">01 / 06</span>
         <h3 data-t="12f82a024f">Subsea</h3>
         <p data-t="64431d55ed">Diving · ROV · Inspection · IRM · Underwater maintenance</p>
       </article>
-      <article class="sector" data-reveal style="--d:1">
+      <article class="sector" data-tilt data-reveal style="--d:1">
         <img src="assets/img/topside.jpg" alt="" loading="lazy">
         <span class="sector__bar"></span><span class="sector__idx">02 / 06</span>
         <h3 data-t="8a6de785a9">Topside</h3>
         <p data-t="fee0b73742">Platform maintenance · Integrity and NDT · Mechanical and electrical works</p>
       </article>
-      <article class="sector" data-reveal style="--d:2">
+      <article class="sector" data-tilt data-reveal style="--d:2">
         <img src="assets/img/offshore.jpg" alt="" loading="lazy">
         <span class="sector__bar"></span><span class="sector__idx">03 / 06</span>
         <h3 data-t="fa1a5e6eea">Offshore &amp; Marine</h3>
         <p data-t="0e051c5db9">Vessels · Marine services and logistics · Offshore support</p>
       </article>
-      <article class="sector" data-reveal style="--d:0">
+      <article class="sector" data-tilt data-reveal style="--d:0">
         <img src="assets/img/downstream.jpg" alt="" loading="lazy">
         <span class="sector__bar"></span><span class="sector__idx">04 / 06</span>
         <h3 data-t="ea4406ba3d">Downstream</h3>
         <p data-t="fd52b0c6c2">Storage tank construction · Pipeline welding · Terminals</p>
       </article>
-      <article class="sector" data-reveal style="--d:1">
+      <article class="sector" data-tilt data-reveal style="--d:1">
         <img src="assets/img/environmental.jpg" alt="" loading="lazy">
         <span class="sector__bar"></span><span class="sector__idx">05 / 06</span>
         <h3 data-t="1c7e0acd03">Environmental</h3>
         <p data-t="b162e95fd1">Waste and effluent management · HSE services</p>
       </article>
-      <article class="sector" data-reveal style="--d:2">
+      <article class="sector" data-tilt data-reveal style="--d:2">
         <img src="assets/img/procurement.jpg" alt="" loading="lazy">
         <span class="sector__bar"></span><span class="sector__idx">06 / 06</span>
         <h3 data-t="c96f2dac0f">Industrial Procurement</h3>
@@ -339,28 +353,11 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; <span data-year>2026</span> COPHIR. <span data-t="3639ec0f50">All rights reserved.</span></span>
+      <p data-t="b7762550b4">&copy; <span data-year>2026</span> COPHIR. Oil &amp; Gas business development in West Africa. All rights reserved.</p>
       <span data-t="4c23cc735f">Abidjan · Côte d'Ivoire · West Africa</span>
     </div>
   </div>
 </footer>
-
-
-<div class="modal" id="vsl-modal" role="dialog" aria-modal="true" aria-label="COPHIR film" hidden>
-  <div class="modal__box">
-    <button class="modal__close" type="button" data-video-close aria-label="Close video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    <video id="vsl-video" controls playsinline preload="none" poster="assets/img/port-worker.jpg">
-      <source src="assets/video/cophir-vsl.mp4" type="video/mp4">
-    </video>
-    <div class="modal__cta">
-      <span data-t="8c491e7959">You already have half of the deal.</span>
-      <div class="btn-row">
-        <a class="btn btn--blue btn--sm" href="contact.html#opportunity"><span data-t="bd0b268294">Bring us an opportunity</span></a>
-        <a class="btn btn--primary btn--sm" href="contact.html#capabilities"><span data-t="37e4265e41">Show us your capabilities</span></a>
-      </div>
-    </div>
-  </div>
-</div>
 
 <script src="js/i18n-fr.js" defer></script>
 <script src="js/main.js" defer></script>

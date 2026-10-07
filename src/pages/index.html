@@ -3,7 +3,6 @@ title: COPHIR | Oil & Gas Business Development in West Africa
 description: COPHIR finds West African Oil & Gas opportunities and the partners that win them. Local access and international capability, in the same bid.
 nav: home
 image: assets/img/abidjan.jpg
-vsl: yes
 -->
 <section class="hero">
   <div class="hero__media"><img src="assets/img/abidjan.jpg" alt="" style="--pos: 70% 60%" fetchpriority="high"></div>
@@ -23,16 +22,30 @@ vsl: yes
   </div>
 </section>
 
-<section class="vsl" aria-labelledby="vsl-title">
+<section class="vsl" id="film" aria-labelledby="vsl-title">
   <div class="vsl__grid">
-    <button class="vsl__frame" type="button" data-video-open aria-label="Play the COPHIR film (1 min 36)">
-      <img src="assets/img/port-worker.jpg" alt="" loading="lazy">
-      <span class="play" aria-hidden="true">{{play}}</span>
-    </button>
+    <div class="vsl__frame" data-vsl>
+      <img class="vsl__poster" src="assets/img/port-worker.jpg" alt="" loading="lazy">
+      <button class="vsl__start" type="button" data-vsl-play aria-label="Play the COPHIR film (1 min 36)">
+        <span class="play" aria-hidden="true">{{play}}</span>
+      </button>
+      <div class="vsl__player" data-vsl-player hidden>
+        <div class="vsl__bar">
+          <span class="vsl__bar-title">COPHIR · <span data-t>The missing half</span></span>
+          <button class="vsl__btn" type="button" data-vsl-back aria-label="Back to the film section">{{expand}}</button>
+          <button class="vsl__btn" type="button" data-vsl-close aria-label="Close the film">{{close}}</button>
+        </div>
+        <video id="vsl-video" controls playsinline preload="metadata" poster="assets/img/port-worker.jpg">
+          <source src="assets/video/cophir-vsl.mp4" type="video/mp4">
+          <track kind="subtitles" srclang="fr" label="Français" src="assets/video/cophir-vsl.fr.vtt" default>
+        </video>
+      </div>
+    </div>
     <div class="vsl__copy" data-reveal>
       <p class="eyebrow" data-t>The missing half</p>
       <h2 class="h-2" id="vsl-title" data-t>See how COPHIR connects opportunities with capability.</h2>
       <p class="vsl__meta"><b data-t>Watch the film</b><span></span>1:36</p>
+      <p class="vsl__hint" data-t>With French subtitles. Keep scrolling while it plays: the film follows you in a small player.</p>
       <p class="fmw">Find<i>.</i> Match<i>.</i> Win<i>.</i></p>
     </div>
   </div>
@@ -98,13 +111,13 @@ vsl: yes
       <h2 class="h-1" data-t>Where do you stand?</h2>
     </div>
     <div class="choices">
-      <article class="choice choice--opp" data-reveal style="--d:0">
+      <article data-tilt class="choice choice--opp" data-reveal style="--d:0">
         <p class="eyebrow eyebrow--plain" style="color:var(--blue-soft)" data-t>Local companies &amp; project holders</p>
         <h3 data-t>You have an opportunity.</h3>
         <p data-t>Bring us what you are working on. We help find what is missing to pursue it.</p>
         <a class="btn btn--blue" href="contact.html#opportunity"><span data-t>Bring us an opportunity</span>{{arrow}}</a>
       </article>
-      <article class="choice choice--cap" data-reveal style="--d:1">
+      <article data-tilt class="choice choice--cap" data-reveal style="--d:1">
         <p class="eyebrow eyebrow--plain" data-t>International contractors &amp; suppliers</p>
         <h3 data-t>You have capabilities.</h3>
         <p data-t>Show us what you can deliver. We connect you with opportunities where those capabilities can win business.</p>
@@ -197,37 +210,37 @@ vsl: yes
       <p class="lead muted" data-t>We work where we know the market, the players and what it takes to win.</p>
     </div>
     <div class="sectors">
-      <article class="sector" data-reveal style="--d:0">
+      <article class="sector" data-tilt data-reveal style="--d:0">
         <img src="assets/img/subsea.jpg" alt="" loading="lazy">
         <span class="sector__bar"></span><span class="sector__idx">01 / 06</span>
         <h3 data-t>Subsea</h3>
         <p data-t>Diving · ROV · Inspection · IRM · Underwater maintenance</p>
       </article>
-      <article class="sector" data-reveal style="--d:1">
+      <article class="sector" data-tilt data-reveal style="--d:1">
         <img src="assets/img/topside.jpg" alt="" loading="lazy">
         <span class="sector__bar"></span><span class="sector__idx">02 / 06</span>
         <h3 data-t>Topside</h3>
         <p data-t>Platform maintenance · Integrity and NDT · Mechanical and electrical works</p>
       </article>
-      <article class="sector" data-reveal style="--d:2">
+      <article class="sector" data-tilt data-reveal style="--d:2">
         <img src="assets/img/offshore.jpg" alt="" loading="lazy">
         <span class="sector__bar"></span><span class="sector__idx">03 / 06</span>
         <h3 data-t>Offshore &amp; Marine</h3>
         <p data-t>Vessels · Marine services and logistics · Offshore support</p>
       </article>
-      <article class="sector" data-reveal style="--d:0">
+      <article class="sector" data-tilt data-reveal style="--d:0">
         <img src="assets/img/downstream.jpg" alt="" loading="lazy">
         <span class="sector__bar"></span><span class="sector__idx">04 / 06</span>
         <h3 data-t>Downstream</h3>
         <p data-t>Storage tank construction · Pipeline welding · Terminals</p>
       </article>
-      <article class="sector" data-reveal style="--d:1">
+      <article class="sector" data-tilt data-reveal style="--d:1">
         <img src="assets/img/environmental.jpg" alt="" loading="lazy">
         <span class="sector__bar"></span><span class="sector__idx">05 / 06</span>
         <h3 data-t>Environmental</h3>
         <p data-t>Waste and effluent management · HSE services</p>
       </article>
-      <article class="sector" data-reveal style="--d:2">
+      <article class="sector" data-tilt data-reveal style="--d:2">
         <img src="assets/img/procurement.jpg" alt="" loading="lazy">
         <span class="sector__bar"></span><span class="sector__idx">06 / 06</span>
         <h3 data-t>Industrial Procurement</h3>

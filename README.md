@@ -55,4 +55,4 @@ Autres points :
 - Domaine : `build.py` utilise `https://www.cophir.com` (variable `SITE_URL`) pour les URL canoniques, l'aperçu des liens partagés et le sitemap. À ajuster si le domaine diffère.
 - Liens LinkedIn et réseaux sociaux : aucun fourni, donc aucun affiché.
 - Images : les visuels des secteurs, de l'accueil, des pages International et Contact sont extraits de la VSL. Les visuels de la page Local Companies et de la page About (hors photo de groupe, fournie par COPHIR) ont été générés via ElevenLabs (modèle Seedream 5 Pro). Aucune image n'est réutilisée d'une section à l'autre.
-- La vidéo web (`assets/video/cophir-vsl.mp4`, 14 Mo) est une version recompressée de la VSL v15 (finale) et conserve ses sous-titres français incrustés.
+- Vidéo : `assets/video/cophir-vsl.mp4` (13 Mo) est la VSL v15 recompressée, dont la bande de sous-titres incrustés a été retirée par recadrage. Les sous-titres français sont dans `assets/video/cophir-vsl.fr.vtt`, affichés en grand par le lecteur. Si la VSL change, il faut régénérer les deux fichiers.

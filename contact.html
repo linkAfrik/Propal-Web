@@ -77,12 +77,10 @@
   <div class="container">
     <div class="switch" role="tablist" aria-label="Choose your situation">
       <button class="switch__opt switch__opt--opp" type="button" role="tab" id="tab-opportunity" aria-controls="opportunity" aria-selected="true" data-form="opportunity">
-        <span class="switch__k" data-t="a00c34f029">Form 1</span>
         <b data-t="8c09aad9ff">You have an opportunity.</b>
         <span data-t="463df01b53">Tender, project, RFQ, direct client requirement.</span>
       </button>
-      <button class="switch__opt" type="button" role="tab" id="tab-capabilities" aria-controls="capabilities" aria-selected="false" data-form="capabilities">
-        <span class="switch__k" data-t="31da81d03f">Form 2</span>
+      <button class="switch__opt switch__opt--cap" type="button" role="tab" id="tab-capabilities" aria-controls="capabilities" aria-selected="false" data-form="capabilities">
         <b data-t="e9c2af5f2f">You have capabilities.</b>
         <span data-t="77ea237d2f">What you do well, where you can deploy it.</span>
       </button>
@@ -90,7 +88,7 @@
 
     <div class="contact-grid">
       <div>
-        <form class="form" id="opportunity" name="opportunity" role="tabpanel" aria-labelledby="tab-opportunity" method="POST" data-netlify="true" netlify-honeypot="company_url" enctype="multipart/form-data" novalidate>
+        <form class="form" id="opportunity" name="opportunity" role="tabpanel" aria-labelledby="tab-opportunity" method="POST" data-netlify="true" netlify-honeypot="company_url" novalidate>
           <input type="hidden" name="form-name" value="opportunity">
           <input type="hidden" name="enquiry" id="opp-enquiry" value="Opportunity">
           <p class="hp"><label>Leave empty <input name="company_url" tabindex="-1" autocomplete="off"></label></p>
@@ -103,10 +101,8 @@
             <div class="field"><label for="o-company" data-t="7a1994999d">Company</label><input id="o-company" name="company" autocomplete="organization" required><span class="err"></span></div>
             <div class="field"><label for="o-email" data-t="84add5b295">Email</label><input id="o-email" name="email" type="email" autocomplete="email" required><span class="err"></span></div>
             <div class="field"><label for="o-country" data-t="d523ebbd10">Country</label><input id="o-country" name="country" autocomplete="country-name" required><span class="err"></span></div>
-            <div class="field field--full"><label for="o-opp" data-t="f2cfa73727">Opportunity / project</label><textarea id="o-opp" name="opportunity" required></textarea><span class="err"></span></div>
-            <div class="field"><label for="o-deadline" data-t="2b12f36924">Deadline</label><input id="o-deadline" name="deadline" type="date"><span class="err"></span></div>
-            <div class="field"><label for="o-doc"><span data-t="14af0b932d">Supporting document</span> <span class="opt" data-t="b16c7ac6fa">(optional)</span></label><input id="o-doc" name="document" type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.zip"><span class="err"></span></div>
-            <div class="field field--full"><label for="o-missing" data-t="64024bdb13">What is missing</label><textarea id="o-missing" name="what_is_missing" required></textarea><span class="err"></span></div>
+            <div class="field field--full"><label for="o-opp" data-t="efc9f3fc2a">Opportunity or project</label><textarea id="o-opp" name="opportunity" required></textarea><span class="err"></span></div>
+            <div class="field field--full"><label for="o-missing" data-t="d94a2272e0">What is missing?</label><textarea id="o-missing" name="what_is_missing" required></textarea><span class="err"></span></div>
           </div>
           <div class="form__status" role="status" aria-live="polite" hidden></div>
           <div class="form__foot">
@@ -115,7 +111,7 @@
           </div>
         </form>
 
-        <form class="form" id="capabilities" name="capabilities" role="tabpanel" aria-labelledby="tab-capabilities" method="POST" data-netlify="true" netlify-honeypot="company_url" enctype="multipart/form-data" novalidate hidden>
+        <form class="form" id="capabilities" name="capabilities" role="tabpanel" aria-labelledby="tab-capabilities" method="POST" data-netlify="true" netlify-honeypot="company_url" novalidate hidden>
           <input type="hidden" name="form-name" value="capabilities">
           <p class="hp"><label>Leave empty <input name="company_url" tabindex="-1" autocomplete="off"></label></p>
           <div class="form__head">
@@ -131,7 +127,6 @@
             <div class="field field--full"><label for="c-cert" data-t="96d8c89fea">Key certifications</label><input id="c-cert" name="certifications"><span class="err"></span></div>
             <div class="field"><label for="c-range" data-t="4036be1bb4">Countries / mobilisation range</label><input id="c-range" name="mobilisation_range" required><span class="err"></span></div>
             <div class="field"><label for="c-size" data-t="70ad2c1ba1">Typical contract size</label><input id="c-size" name="contract_size" placeholder="e.g. EUR 0.5M – 5M"><span class="err"></span></div>
-            <div class="field field--full"><label for="c-doc"><span data-t="fab0c698c0">Capability statement</span> <span class="opt" data-t="b16c7ac6fa">(optional)</span></label><input id="c-doc" name="capability_statement" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.zip"><span class="err"></span></div>
           </div>
           <div class="form__status" role="status" aria-live="polite" hidden></div>
           <div class="form__foot">
@@ -187,7 +182,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; <span data-year>2026</span> COPHIR. <span data-t="3639ec0f50">All rights reserved.</span></span>
+      <p data-t="b7762550b4">&copy; <span data-year>2026</span> COPHIR. Oil &amp; Gas business development in West Africa. All rights reserved.</p>
       <span data-t="4c23cc735f">Abidjan · Côte d'Ivoire · West Africa</span>
     </div>
   </div>

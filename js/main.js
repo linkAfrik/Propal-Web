@@ -21,6 +21,19 @@
     } catch (e) { return null; }
   }
 
+  /* ---------- Page changes always start at the top ----------
+     Browsers (and some embedded previews) can restore the previous scroll
+     position after a navigation. Every new page opens at its top unless the
+     link targets a #section. */
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  function toTop() {
+    if (location.hash && location.hash.length > 1 && location.hash !== "#review") return;
+    window.scrollTo(0, 0);
+    try { doc.scrollIntoView({ block: "start" }); } catch (e) {}
+  }
+  toTop();
+  window.addEventListener("pageshow", function (e) { if (e.persisted) toTop(); });
+
   /* ---------- Language ---------- */
   var FR = window.COPHIR_FR || { strings: {}, titles: {}, svg: {} };
   var originals = new Map();
@@ -75,6 +88,7 @@
     var burger = document.querySelector(".burger");
     if (burger) burger.setAttribute("aria-label", t(body.classList.contains("menu-open") ? "closeMenu" : "openMenu"));
     store("cophir-lang", lang);
+    document.querySelectorAll("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
   }
 
   document.querySelectorAll("[data-lang]").forEach(function (b) {
@@ -103,6 +117,7 @@
     burger.addEventListener("click", function () { setMenu(!body.classList.contains("menu-open")); });
     menu.addEventListener("click", function (e) { if (e.target.closest("a")) setMenu(false); });
     window.addEventListener("resize", function () { if (window.innerWidth >= 1100) setMenu(false); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && body.classList.contains("menu-open")) setMenu(false); });
   }
 
   /* ---------- Reveal on scroll ---------- */
@@ -140,45 +155,86 @@
     })(start);
   }
 
-  /* ---------- Video modal ---------- */
-  var modal = document.getElementById("vsl-modal");
-  var video = document.getElementById("vsl-video");
-  var lastFocus = null;
-  function openVideo() {
-    if (!modal) return;
-    lastFocus = document.activeElement;
-    modal.hidden = false;
-    requestAnimationFrame(function () { modal.classList.add("is-open"); });
-    body.style.overflow = "hidden";
-    modal.querySelector(".modal__close").focus();
-    if (video) {
+  /* ---------- VSL: inline player that floats while you scroll ----------
+     The film starts in place. If the visitor scrolls away while it plays, it
+     docks in a small player in the corner and keeps playing until they pause,
+     close it or it ends. Scrolling back to the section puts it back in place. */
+  var vslFrame = document.querySelector("[data-vsl]");
+  if (vslFrame) {
+    var player = vslFrame.querySelector("[data-vsl-player]");
+    var video = player.querySelector("video");
+    var inView = true;
+    var dismissed = false;
+    function dock() {
+      var float = !inView && !dismissed && !video.paused && !video.ended;
+      if (float === player.classList.contains("is-floating")) return;
+      player.classList.toggle("is-floating", float);
+      vslFrame.classList.toggle("has-floating", float);
+    }
+    vslFrame.querySelector("[data-vsl-play]").addEventListener("click", function () {
+      dismissed = false;
+      player.hidden = false;
+      vslFrame.classList.add("is-playing");
       var p = video.play();
       if (p && p.catch) p.catch(function () {});
+      video.focus();
+    });
+    player.querySelector("[data-vsl-close]").addEventListener("click", function () {
+      dismissed = true;
+      video.pause();
+      dock();
+    });
+    player.querySelector("[data-vsl-back]").addEventListener("click", function () {
+      vslFrame.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+    });
+    video.addEventListener("play", function () { dismissed = false; dock(); });
+    video.addEventListener("ended", function () { dismissed = true; dock(); });
+    // a pause keeps the mini player on screen so the visitor can resume; closing removes it
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (en) {
+        inView = en[0].isIntersecting;
+        dock();
+      }, { threshold: 0.25 }).observe(vslFrame);
     }
-  }
-  function closeVideo() {
-    if (!modal || modal.hidden) return;
-    modal.classList.remove("is-open");
-    if (video) video.pause();
-    body.style.overflow = "";
-    setTimeout(function () { modal.hidden = true; }, 300);
-    if (lastFocus) lastFocus.focus();
-  }
-  document.querySelectorAll("[data-video-open]").forEach(function (b) { b.addEventListener("click", openVideo); });
-  document.querySelectorAll("[data-video-close]").forEach(function (b) { b.addEventListener("click", closeVideo); });
-  if (modal) {
-    modal.addEventListener("click", function (e) { if (e.target === modal) closeVideo(); });
-    modal.addEventListener("keydown", function (e) {
-      if (e.key !== "Tab") return;
-      var f = modal.querySelectorAll("button, a, video");
-      var first = f[0], last = f[f.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && player.classList.contains("is-floating")) { dismissed = true; video.pause(); dock(); }
     });
   }
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") { closeVideo(); if (body.classList.contains("menu-open")) setMenu(false); }
-  });
+
+  /* ---------- Subtle motion: hero parallax + 3D tilt on cards ---------- */
+  var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (!reduceMotion) {
+    var heroImg = document.querySelector(".hero__media img");
+    if (heroImg) {
+      var ticking = false;
+      window.addEventListener("scroll", function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          var y = Math.min(window.scrollY, 900);
+          heroImg.style.setProperty("--parallax", (y * 0.18).toFixed(1) + "px");
+          ticking = false;
+        });
+      }, { passive: true });
+    }
+    if (finePointer) {
+      document.querySelectorAll("[data-tilt]").forEach(function (el) {
+        el.addEventListener("pointermove", function (e) {
+          var r = el.getBoundingClientRect();
+          var x = (e.clientX - r.left) / r.width - 0.5;
+          var y = (e.clientY - r.top) / r.height - 0.5;
+          el.style.setProperty("--rx", (-y * 6).toFixed(2) + "deg");
+          el.style.setProperty("--ry", (x * 8).toFixed(2) + "deg");
+          el.style.setProperty("--mx", ((x + 0.5) * 100).toFixed(1) + "%");
+          el.style.setProperty("--my", ((y + 0.5) * 100).toFixed(1) + "%");
+        });
+        el.addEventListener("pointerleave", function () {
+          el.style.setProperty("--rx", "0deg");
+          el.style.setProperty("--ry", "0deg");
+        });
+      });
+    }
+  }
 
   /* ---------- Contact: form switcher ---------- */
   var tabs = document.querySelectorAll(".switch__opt");
@@ -286,7 +342,6 @@
   });
 
   /* ---------- Misc ---------- */
-  document.querySelectorAll("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
   // Review mode: add #review to any URL to highlight content still marked [TO CONFIRM] in the brief.
   if (location.hash === "#review" || /[?&]review\b/.test(location.search)) doc.classList.add("review");
 })();
