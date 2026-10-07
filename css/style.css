@@ -922,3 +922,8 @@ p + p { margin-top: 0; }
   .hero-sectors__track { animation: none; }
   .hero-sectors__viewport { overflow-y: auto; }
 }
+
+/* Home hero picture: keep the platform between the message and the sector reel on desktop */
+@media (min-width: 1100px) {
+  .hero--home .hero__media img { width: 130%; max-width: none; margin-left: -30%; object-position: 50% 55%; }
+}

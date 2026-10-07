@@ -76,7 +76,7 @@ def head(meta, page, lang, fr):
     title = fr["titles"].get(page, meta["title"]) if lang == "fr" else meta["title"]
     desc = fr["descriptions"].get(page, meta["description"]) if lang == "fr" else meta["description"]
     prefix = "../" if lang == "fr" else ""
-    image = SITE_URL + "/" + meta.get("image", "assets/img/about-vision.jpg")
+    image = SITE_URL + "/" + meta.get("image", "assets/img/home-platform.jpg")
     ld = {
         "@context": "https://schema.org",
         "@type": "Organization",
