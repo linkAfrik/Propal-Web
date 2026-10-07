@@ -881,3 +881,16 @@ p + p { margin-top: 0; }
   .hero-sectors__track li { display: flex; }
   .hero-sectors__track li a { flex: 1; }
 }
+
+/* Hero sectors slider: horizontal band under the buttons, at every width */
+.hero__grid { grid-template-columns: 1fr; gap: clamp(36px, 5vw, 56px); }
+.hero-sectors__viewport {
+  height: auto;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+}
+.hero-sectors__track { display: flex; width: max-content; animation: sectorsLeft 40s linear infinite; }
+.hero-sectors__track li { flex: none; width: 320px; display: flex; }
+.hero-sectors__track li a { flex: 1; height: auto; }
+@media (max-width: 640px) { .hero-sectors__track li { width: 260px; } .hero-sectors__track { animation-duration: 32s; } }
+@media (prefers-reduced-motion: reduce) { .hero-sectors__track { animation: none; } .hero-sectors__viewport { overflow-x: auto; } }
