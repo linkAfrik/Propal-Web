@@ -37,11 +37,26 @@ Le script signale toute phrase anglaise sans traduction française (`--strict` l
 
 Le site est rédigé en anglais. Le bouton EN/FR de l'en-tête bascule toute la page en français à partir de `src/i18n/fr.json`. Un visiteur dont le navigateur est en français voit le site en français par défaut, et son choix est mémorisé.
 
+## Hébergement Infomaniak et déploiement automatique
+
+À chaque mise à jour de la branche `main`, l'action GitHub `.github/workflows/deploy-infomaniak.yml` reconstruit les pages et les copie par SSH sur l'hébergement Infomaniak. Tant que la configuration ci-dessous n'est pas faite, l'action se contente de passer son tour.
+
+Configuration, une seule fois :
+
+1. **Infomaniak (Manager > Hébergement web)** : créer le site pour le domaine, puis un compte **FTP + SSH**. Noter le nom d'hôte SSH, l'utilisateur et le dossier du site (ex. `sites/cophir.com`).
+2. Générer une paire de clés SSH ed25519 sur un ordinateur, ajouter la **clé publique** au compte SSH Infomaniak.
+3. **GitHub (dépôt Propal-Web > Settings > Secrets and variables > Actions)** :
+   - Secrets : `INFOMANIAK_SSH_HOST`, `INFOMANIAK_SSH_USER`, `INFOMANIAK_SSH_KEY` (la clé **privée**).
+   - Variables : `INFOMANIAK_TARGET_DIR` (dossier du site), et `INFOMANIAK_SSH_PORT` seulement si ce n'est pas 22.
+4. Onglet **Actions** > « Deploy to Infomaniak » > **Run workflow** pour un premier envoi.
+
+Seuls les fichiers du site sont envoyés (pas `src/`, `build.py`, ni ce README). Les fichiers supprimés du site ne sont pas effacés du serveur.
+
 ## Formulaires
 
-Les deux formulaires de contact sont prêts pour **Netlify Forms**, sans configuration : une fois le site déployé sur Netlify, les envois (pièces jointes comprises) arrivent dans l'interface Netlify, qui peut les transférer par e-mail à contact@cophir.com.
+Sur Infomaniak, les deux formulaires de contact envoient chaque demande par e-mail à contact@cophir.com via `contact.php` (PHP, inclus dans l'hébergement). L'expéditeur technique est `site@cophir.com` : Infomaniak exige une adresse d'un domaine hébergé sur le même compte, à adapter dans `contact.php` si besoin (constantes `CONTACT_TO` et `CONTACT_FROM`). La réponse au visiteur se fait simplement avec « Répondre », l'adresse du visiteur étant en « Reply-To ». Si l'envoi échoue, le site propose au visiteur un e-mail pré-rempli.
 
-Sur un autre hébergeur, renseigner l'adresse d'un service de formulaires (Formspree, Basin…) dans `FORM_ENDPOINT`, en haut de `js/main.js`. Si l'envoi échoue, le visiteur se voit proposer un e-mail pré-rempli vers contact@cophir.com.
+`.htaccess` force le HTTPS, déclare le type des sous-titres de la vidéo, active la compression et le cache.
 
 ## Points à valider avant mise en ligne
 

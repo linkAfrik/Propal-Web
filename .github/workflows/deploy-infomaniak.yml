@@ -1,0 +1,64 @@
+# Deploys the built site to Infomaniak web hosting over SSH (rsync) on every push to main.
+# Configure once in GitHub: Settings > Secrets and variables > Actions
+#   Secrets:   INFOMANIAK_SSH_HOST     e.g. xxxx.ftp.infomaniak.com (shown in the Infomaniak Manager, FTP/SSH)
+#              INFOMANIAK_SSH_USER     the FTP + SSH account user
+#              INFOMANIAK_SSH_KEY      private key (ed25519) whose public key is added to that account
+#   Variables: INFOMANIAK_TARGET_DIR   folder of the site on the hosting, e.g. sites/cophir.com
+#              INFOMANIAK_SSH_PORT     optional, defaults to 22
+# Until these are set the workflow skips the upload instead of failing.
+name: Deploy to Infomaniak
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-infomaniak
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check configuration
+        id: cfg
+        env:
+          HOST: ${{ secrets.INFOMANIAK_SSH_HOST }}
+          USER: ${{ secrets.INFOMANIAK_SSH_USER }}
+          KEY: ${{ secrets.INFOMANIAK_SSH_KEY }}
+          TARGET: ${{ vars.INFOMANIAK_TARGET_DIR }}
+        run: |
+          if [ -z "$HOST" ] || [ -z "$USER" ] || [ -z "$KEY" ] || [ -z "$TARGET" ]; then
+            echo "Infomaniak deployment is not configured yet: skipping upload."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.cfg.outputs.ready == 'true'
+
+      - name: Build pages (EN + FR)
+        if: steps.cfg.outputs.ready == 'true'
+        run: python3 build.py --strict
+
+      - name: Upload over SSH
+        if: steps.cfg.outputs.ready == 'true'
+        env:
+          HOST: ${{ secrets.INFOMANIAK_SSH_HOST }}
+          USER: ${{ secrets.INFOMANIAK_SSH_USER }}
+          KEY: ${{ secrets.INFOMANIAK_SSH_KEY }}
+          TARGET: ${{ vars.INFOMANIAK_TARGET_DIR }}
+          PORT: ${{ vars.INFOMANIAK_SSH_PORT || '22' }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$PORT" "$HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          # Only site files are sent; sources and tooling stay in the repository.
+          # Files removed from the site are not deleted on the server (safe default).
+          rsync -az --human-readable --stats \
+            --exclude '.git*' --exclude '.github/' --exclude 'src/' --exclude 'build.py' --exclude 'README.md' \
+            -e "ssh -i ~/.ssh/deploy_key -p $PORT -o StrictHostKeyChecking=yes" \
+            ./ "$USER@$HOST:$TARGET/"

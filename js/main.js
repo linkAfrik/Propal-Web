@@ -7,11 +7,10 @@
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------- Configuration ----------
-     Form delivery. By default forms POST to the current page, which is what
-     Netlify Forms expects. To use another service (Formspree, Basin, a custom
-     endpoint…), set FORM_ENDPOINT to its URL. If delivery fails, the visitor is
-     offered a pre-filled email to CONTACT_EMAIL instead. */
-  var FORM_ENDPOINT = "";
+     Form delivery: forms POST to contact.php at the site root (PHP hosting such
+     as Infomaniak), which emails the request to contact@cophir.com. If delivery
+     fails, the visitor is offered a pre-filled email to CONTACT_EMAIL instead. */
+  var FORM_ENDPOINT = "/contact.php";
   var CONTACT_EMAIL = "contact@cophir.com";
 
   function store(key, val) {
