@@ -794,3 +794,12 @@ p + p { margin-top: 0; }
 .sector h3 { margin: 0; font-size: 1.32rem; color: #fff; line-height: 1.15; }
 .section--mist .sector p, .sector p { color: #e8edf3; font-size: .97rem; line-height: 1.55; font-weight: 500; }
 @media (max-width: 560px) { .sector { min-height: 300px; } }
+
+/* Sector cards, final: picture on top left uncovered, text on a solid band below it */
+.sector { display: flex; flex-direction: column; justify-content: flex-start; min-height: 0; padding: 0; background: var(--navy-900); border: 1px solid rgba(11, 26, 44, .15); box-shadow: 0 18px 40px -26px rgba(11, 26, 44, .55); }
+.sector::before { display: none; }
+.sector img { position: relative !important; inset: auto; z-index: 0 !important; display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; flex: none; }
+.sector__body { flex: 1; margin: 0; border-radius: 0; border: 0; border-top: 3px solid var(--orange); background: var(--navy-900); backdrop-filter: none; -webkit-backdrop-filter: none; padding: 18px 20px 22px; align-content: start; }
+.sector:hover .sector__body { background: var(--navy-800); border-color: var(--orange); }
+.sector__body .sector__bar { display: none; }
+@media (max-width: 560px) { .sector { min-height: 0; } }
