@@ -710,3 +710,43 @@ video::cue { font-family: var(--f-body); font-size: clamp(15px, 1.6vw, 22px); li
 .section--mist .aside__card p, .section--mist .aside__card li { color: var(--on-dark-2); }
 .section--mist .aside__card h3 { color: #fff; }
 .section--mist .aside__card .eyebrow { color: var(--orange); }
+
+/* Why COPHIR: wider frame so the founder and the board both read */
+.why__img--wide { aspect-ratio: 5 / 4; }
+.why__img--wide img { object-position: 52% 50%; }
+
+/* About: hero carries the story image (COPHIR between local partner and international contractor) */
+.hero--plain { background: radial-gradient(120% 90% at 80% 0%, #15304f 0%, var(--navy-950) 60%); }
+.hero--plain::before { display: none; }
+.story-shot { position: relative; margin: clamp(32px, 5vw, 56px) 0 0; border-radius: 8px; overflow: hidden; aspect-ratio: 21 / 9; max-width: 100%; box-shadow: 0 40px 80px -40px rgba(0, 0, 0, .8); }
+.story-shot img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; animation: kenburns 24s var(--ease) both; }
+.story-shot::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(0deg, rgba(6,16,29,.85) 0%, rgba(6,16,29,0) 38%); }
+.story-tag { position: absolute; top: 14%; z-index: 2; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.story-tag b { font: 700 .72rem/1 var(--f-display); letter-spacing: .14em; text-transform: uppercase; color: #fff; padding: 7px 10px; border-radius: 999px; background: rgba(6, 16, 29, .72); border: 1px solid rgba(255,255,255,.35); white-space: nowrap; backdrop-filter: blur(4px); }
+.story-tag::after { content: ""; width: 1px; height: 36px; background: linear-gradient(rgba(255,255,255,.7), transparent); }
+.story-tag--l { left: 36%; }
+.story-tag--c { left: 51%; top: 7%; }
+.story-tag--c b { background: var(--orange); border-color: var(--orange); color: var(--navy-950); }
+.story-tag--r { left: 65%; }
+.story-shot figcaption { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 18px clamp(16px, 3vw, 28px); color: var(--on-dark); font-family: var(--f-display); font-weight: 600; font-size: var(--step-1); }
+@media (max-width: 760px) {
+  .story-shot { aspect-ratio: 4 / 3; }
+  .story-shot img { object-position: 52% 60%; }
+  .story-tag b { font-size: .6rem; padding: 5px 7px; letter-spacing: .08em; }
+  .story-tag::after { height: 18px; }
+  .story-tag--l { left: 28%; top: 10%; } .story-tag--r { left: 74%; top: 10%; } .story-tag--c { top: 3%; }
+  .story-shot figcaption { font-size: .9rem; }
+}
+
+/* Local Companies CTA: image beside the text, so both faces stay visible */
+.cta-band--split { background: radial-gradient(110% 120% at 100% 50%, #15304f 0%, var(--navy-950) 65%); }
+.cta-band--split::before { display: none; }
+.cta-band--split .cta-band__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); }
+.cta-band__shot { margin: 0; border-radius: 8px; overflow: hidden; aspect-ratio: 16 / 9; max-width: 100%; box-shadow: 0 40px 80px -40px rgba(0, 0, 0, .8); border: 1px solid var(--line-dark); }
+.cta-band__shot img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.6s var(--ease); }
+.cta-band__shot:hover img { transform: scale(1.04); }
+@media (max-width: 860px) { .cta-band--split .cta-band__inner { grid-template-columns: 1fr; } }
+@media (max-width: 760px) {
+  .story-tag b { white-space: normal; text-align: center; max-width: 104px; line-height: 1.2; }
+  .story-tag--l { left: 25%; } .story-tag--r { left: 77%; }
+}
