@@ -863,3 +863,21 @@ p + p { margin-top: 0; }
 /* Why COPHIR: on-site check picture, keep both people in frame */
 .why__img--wide { aspect-ratio: 4 / 3; }
 .why__img--wide img { object-position: 72% 45%; }
+
+/* Hero sectors slider: text only */
+.hero-sectors__track a {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: baseline; column-gap: 12px; row-gap: 6px;
+  height: auto; padding: 16px 18px; background: rgba(6, 16, 29, .55); border: 1px solid rgba(255, 255, 255, .12);
+  border-left: 3px solid var(--orange); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  transition: background .3s var(--ease), border-color .3s var(--ease);
+}
+.hero-sectors__track a::before { display: none; }
+.hero-sectors__track a:hover { background: rgba(6, 16, 29, .8); border-color: rgba(242, 128, 44, .6); border-left-color: var(--orange); }
+.hero-sectors__track b { font-size: 1.05rem; text-shadow: none; }
+.hero-sectors__d { grid-column: 2; font-size: .86rem; line-height: 1.45; color: var(--on-dark-2); }
+@media (max-width: 1023px) {
+  .hero-sectors__track li { width: 260px; }
+  .hero-sectors__track a { height: 100%; }
+  .hero-sectors__track li { display: flex; }
+  .hero-sectors__track li a { flex: 1; }
+}
