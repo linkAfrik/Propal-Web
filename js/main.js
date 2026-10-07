@@ -187,6 +187,27 @@
     player.querySelector("[data-vsl-back]").addEventListener("click", function () {
       vslFrame.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
     });
+    // Subtitles: if the <track> cannot be loaded (e.g. a host serving .vtt with the
+    // wrong type), read the file ourselves and add the cues.
+    var trackEl = video.querySelector("track");
+    if (trackEl) {
+      trackEl.addEventListener("error", function () {
+        if (!window.VTTCue || video.dataset.cuesLoaded) return;
+        video.dataset.cuesLoaded = "1";
+        fetch(trackEl.getAttribute("src")).then(function (r) { return r.text(); }).then(function (txt) {
+          var tt = video.addTextTrack("subtitles", trackEl.label || "Français", trackEl.srclang || "fr");
+          var sec = function (t) { var p = t.trim().split(":"); return p.length === 3 ? +p[0] * 3600 + +p[1] * 60 + parseFloat(p[2]) : +p[0] * 60 + parseFloat(p[1]); };
+          txt.replace(/\r/g, "").split(/\n\n+/).forEach(function (block) {
+            var lines = block.split("\n");
+            var i = lines.findIndex(function (l) { return l.indexOf("-->") > -1; });
+            if (i < 0) return;
+            var t = lines[i].split("-->");
+            tt.addCue(new VTTCue(sec(t[0]), sec(t[1].trim().split(" ")[0]), lines.slice(i + 1).join("\n")));
+          });
+          tt.mode = "showing";
+        }).catch(function () {});
+      });
+    }
     video.addEventListener("play", function () { dismissed = false; dock(); });
     video.addEventListener("ended", function () { dismissed = true; dock(); });
     // a pause keeps the mini player on screen so the visitor can resume; closing removes it
