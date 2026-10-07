@@ -1,0 +1,104 @@
+<!--
+title: Contact COPHIR | West African Oil & Gas
+description: Bring COPHIR an opportunity or show us your capabilities. We review the fit before making introductions; nothing is shared without your agreement.
+nav: contact
+image: assets/img/signing.jpg
+-->
+<section class="hero hero--page">
+  <div class="hero__media"><img src="assets/img/signing.jpg" alt="" style="--pos: 70% 50%" fetchpriority="high"></div>
+  <div class="container">
+    <div class="hero__content">
+      <p class="eyebrow" data-rise style="--i:0" data-t>Contact</p>
+      <h1 data-rise style="--i:1" data-t>What's your current situation?</h1>
+    </div>
+  </div>
+</section>
+
+<section class="section section--mist" id="forms">
+  <div class="container">
+    <div class="switch" role="tablist" aria-label="Choose your situation">
+      <button class="switch__opt switch__opt--opp" type="button" role="tab" id="tab-opportunity" aria-controls="opportunity" aria-selected="true" data-form="opportunity">
+        <span class="switch__k" data-t>Form 1</span>
+        <b data-t>You have an opportunity.</b>
+        <span data-t>Tender, project, RFQ, direct client requirement.</span>
+      </button>
+      <button class="switch__opt" type="button" role="tab" id="tab-capabilities" aria-controls="capabilities" aria-selected="false" data-form="capabilities">
+        <span class="switch__k" data-t>Form 2</span>
+        <b data-t>You have capabilities.</b>
+        <span data-t>What you do well, where you can deploy it.</span>
+      </button>
+    </div>
+
+    <div class="contact-grid">
+      <div>
+        <form class="form" id="opportunity" name="opportunity" role="tabpanel" aria-labelledby="tab-opportunity" method="POST" data-netlify="true" netlify-honeypot="company_url" enctype="multipart/form-data" novalidate>
+          <input type="hidden" name="form-name" value="opportunity">
+          <input type="hidden" name="enquiry" id="opp-enquiry" value="Opportunity">
+          <p class="hp"><label>Leave empty <input name="company_url" tabindex="-1" autocomplete="off"></label></p>
+          <div class="form__head">
+            <h2 data-t>You have an opportunity.</h2>
+            <p data-t>Tender, project, RFQ, direct client requirement. Tell us what you are working on and what is missing.</p>
+          </div>
+          <div class="fields">
+            <div class="field"><label for="o-name" data-t>Name and position</label><input id="o-name" name="name_position" autocomplete="name" required><span class="err"></span></div>
+            <div class="field"><label for="o-company" data-t>Company</label><input id="o-company" name="company" autocomplete="organization" required><span class="err"></span></div>
+            <div class="field"><label for="o-email" data-t>Email</label><input id="o-email" name="email" type="email" autocomplete="email" required><span class="err"></span></div>
+            <div class="field"><label for="o-country" data-t>Country</label><input id="o-country" name="country" autocomplete="country-name" required><span class="err"></span></div>
+            <div class="field field--full"><label for="o-opp" data-t>Opportunity / project</label><textarea id="o-opp" name="opportunity" required></textarea><span class="err"></span></div>
+            <div class="field"><label for="o-deadline" data-t>Deadline</label><input id="o-deadline" name="deadline" type="date"><span class="err"></span></div>
+            <div class="field"><label for="o-doc"><span data-t>Supporting document</span> <span class="opt" data-t>(optional)</span></label><input id="o-doc" name="document" type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.zip"><span class="err"></span></div>
+            <div class="field field--full"><label for="o-missing" data-t>What is missing</label><textarea id="o-missing" name="what_is_missing" required></textarea><span class="err"></span></div>
+          </div>
+          <div class="form__status" role="status" aria-live="polite" hidden></div>
+          <div class="form__foot">
+            <small data-t>Nothing you send is shared with another party without your agreement.</small>
+            <button class="btn btn--blue" type="submit"><span data-t>Bring us an opportunity</span>{{arrow}}</button>
+          </div>
+        </form>
+
+        <form class="form" id="capabilities" name="capabilities" role="tabpanel" aria-labelledby="tab-capabilities" method="POST" data-netlify="true" netlify-honeypot="company_url" enctype="multipart/form-data" novalidate hidden>
+          <input type="hidden" name="form-name" value="capabilities">
+          <p class="hp"><label>Leave empty <input name="company_url" tabindex="-1" autocomplete="off"></label></p>
+          <div class="form__head">
+            <h2 data-t>You have capabilities.</h2>
+            <p data-t>Tell us what you want to deploy in West Africa: what you do well, where you can deploy it, and what kind of business makes sense for you.</p>
+          </div>
+          <div class="fields">
+            <div class="field"><label for="c-name" data-t>Name and position</label><input id="c-name" name="name_position" autocomplete="name" required><span class="err"></span></div>
+            <div class="field"><label for="c-email" data-t>Email</label><input id="c-email" name="email" type="email" autocomplete="email" required><span class="err"></span></div>
+            <div class="field"><label for="c-company" data-t>Company</label><input id="c-company" name="company" autocomplete="organization" required><span class="err"></span></div>
+            <div class="field"><label for="c-web" data-t>Website</label><input id="c-web" name="website" type="url" placeholder="https://" autocomplete="url"><span class="err"></span></div>
+            <div class="field field--full"><label for="c-core" data-t>Core capabilities</label><textarea id="c-core" name="core_capabilities" required></textarea><span class="err"></span></div>
+            <div class="field field--full"><label for="c-cert" data-t>Key certifications</label><input id="c-cert" name="certifications"><span class="err"></span></div>
+            <div class="field"><label for="c-range" data-t>Countries / mobilisation range</label><input id="c-range" name="mobilisation_range" required><span class="err"></span></div>
+            <div class="field"><label for="c-size" data-t>Typical contract size</label><input id="c-size" name="contract_size" placeholder="e.g. EUR 0.5M – 5M"><span class="err"></span></div>
+            <div class="field field--full"><label for="c-doc"><span data-t>Capability statement</span> <span class="opt" data-t>(optional)</span></label><input id="c-doc" name="capability_statement" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.zip"><span class="err"></span></div>
+          </div>
+          <div class="form__status" role="status" aria-live="polite" hidden></div>
+          <div class="form__foot">
+            <small data-t>Nothing you send is shared with another party without your agreement.</small>
+            <button class="btn btn--primary" type="submit"><span data-t>Show us your capabilities</span>{{arrow}}</button>
+          </div>
+        </form>
+      </div>
+
+      <aside class="aside">
+        <div class="aside__card">
+          <p class="eyebrow" data-t>What happens next</p>
+          <h3 data-t>We review the fit before making introductions.</h3>
+          <p data-t>Nothing you send is shared with another party without your agreement.</p>
+          <ul class="aside__list">
+            <li data-t>Confidential by default</li>
+            <li data-t>Confidentiality and non-circumvention terms before any disclosure</li>
+            <li data-t>Selective: we focus on opportunities worth pursuing</li>
+          </ul>
+        </div>
+        <div class="aside__card">
+          <p class="eyebrow" data-t>Write to us</p>
+          <a class="mail" href="mailto:contact@cophir.com">{{mail}}contact@cophir.com</a>
+          <span class="geo" style="margin-top:6px">{{pin}}<span data-t>Abidjan<br>Côte d'Ivoire<br>West Africa</span></span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
