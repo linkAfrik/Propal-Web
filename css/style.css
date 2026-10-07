@@ -860,3 +860,6 @@ p + p { margin-top: 0; }
 .section--steel .verbs li { background: rgba(255, 255, 255, .05); border-color: var(--line-dark); color: var(--on-dark); box-shadow: none; }
 .section--steel .verbs li b { background: var(--orange); color: var(--navy-950); }
 .section--steel .verbs li strong { color: var(--orange); }
+/* Why COPHIR: on-site check picture, keep both people in frame */
+.why__img--wide { aspect-ratio: 4 / 3; }
+.why__img--wide img { object-position: 72% 45%; }
