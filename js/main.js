@@ -20,25 +20,29 @@
       localStorage.setItem(key, val);
     } catch (e) { return null; }
   }
-
-  /* ---------- Page changes always start at the top ----------
-     Browsers (and some embedded previews) can restore the previous scroll
-     position after a navigation. Every new page opens at its top unless the
-     link targets a #section. */
-  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
-  function toTop() {
-    if (location.hash && location.hash.length > 1 && location.hash !== "#review") return;
-    window.scrollTo(0, 0);
-    try { doc.scrollIntoView({ block: "start" }); } catch (e) {}
+  function session(key, val) {
+    try {
+      if (val === undefined) { var v = sessionStorage.getItem(key); sessionStorage.removeItem(key); return v; }
+      sessionStorage.setItem(key, val);
+    } catch (e) { return null; }
   }
-  toTop();
-  window.addEventListener("pageshow", function (e) { if (e.persisted) toTop(); });
+  function jumpTop() {
+    try { window.scrollTo({ top: 0, left: 0, behavior: "instant" }); } catch (e) { window.scrollTo(0, 0); }
+  }
 
-  /* ---------- Language ---------- */
-  var FR = window.COPHIR_FR || { strings: {}, titles: {}, svg: {} };
-  var originals = new Map();
-  var originalTitle = document.title;
-  var lang = "en";
+  /* ---------- Language ----------
+     English and French are separate static pages (/ and /fr/). The EN/FR
+     switch is a plain link; the choice is remembered. A first visit to the
+     English home from a French-language browser is sent to the French home. */
+  var lang = (doc.lang || "en").slice(0, 2);
+  document.querySelectorAll("[data-lang-link]").forEach(function (a) {
+    a.addEventListener("click", function () { store("cophir-lang", a.getAttribute("data-lang-link")); });
+  });
+  if (lang === "en" && body.getAttribute("data-page") === "home" && !store("cophir-lang") &&
+      (navigator.language || "").toLowerCase().indexOf("fr") === 0) {
+    var frHome = document.querySelector('[data-lang-link="fr"]');
+    if (frHome) { store("cophir-lang", "fr"); location.replace(frHome.href); return; }
+  }
 
   var UI = {
     en: {
@@ -48,55 +52,48 @@
       sending: "Sending…",
       ok: "Thank you. We have received your message and will review the fit before coming back to you.",
       fallback: "Online sending is not available right now. Your email app should open with your answers pre-filled: just press send. If it does not open, write to us at",
-      fallbackFile: "Please attach your document to the email.",
       openMenu: "Open menu",
       closeMenu: "Close menu"
     },
     fr: {
-      required: "Merci de remplir ce champ.",
-      email: "Merci d'indiquer une adresse e-mail valide.",
-      url: "Merci d'indiquer une adresse web complète, commençant par https://",
-      sending: "Envoi…",
-      ok: "Merci. Nous avons bien reçu votre message et étudierons l'adéquation avant de revenir vers vous.",
-      fallback: "L'envoi en ligne n'est pas disponible pour le moment. Votre messagerie devrait s'ouvrir avec vos réponses pré-remplies : il suffit d'envoyer. Si elle ne s'ouvre pas, écrivez-nous à",
-      fallbackFile: "Merci de joindre votre document à l'e-mail.",
+      required: "Ce champ est nécessaire.",
+      email: "Indiquez une adresse e-mail valide.",
+      url: "Indiquez une adresse complète, commençant par https://",
+      sending: "Envoi en cours…",
+      ok: "Merci, votre message nous est bien parvenu. Nous étudions la pertinence de votre demande et revenons vers vous rapidement.",
+      fallback: "L'envoi en ligne est momentanément indisponible. Votre messagerie va s'ouvrir avec vos réponses déjà saisies : il ne reste qu'à envoyer. Si elle ne s'ouvre pas, écrivez-nous à",
       openMenu: "Ouvrir le menu",
       closeMenu: "Fermer le menu"
     }
   };
   function t(k) { return (UI[lang] || UI.en)[k]; }
 
-  function setLang(next) {
-    lang = next === "fr" ? "fr" : "en";
-    doc.lang = lang;
-    document.querySelectorAll("[data-t]").forEach(function (el) {
-      var k = el.getAttribute("data-t");
-      if (!originals.has(el)) originals.set(el, el.innerHTML);
-      if (lang === "fr" && FR.strings[k]) el.innerHTML = FR.strings[k];
-      else el.innerHTML = originals.get(el);
-    });
-    document.querySelectorAll("[data-svg-t]").forEach(function (el) {
-      if (!el.dataset.en) el.dataset.en = el.textContent;
-      var k = el.getAttribute("data-svg-t");
-      el.textContent = lang === "fr" && FR.svg[k] ? FR.svg[k] : el.dataset.en;
-    });
-    var page = body.getAttribute("data-page");
-    document.title = lang === "fr" && FR.titles[page] ? FR.titles[page] : originalTitle;
-    document.querySelectorAll("[data-lang]").forEach(function (b) {
-      b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === lang));
-    });
-    var burger = document.querySelector(".burger");
-    if (burger) burger.setAttribute("aria-label", t(body.classList.contains("menu-open") ? "closeMenu" : "openMenu"));
-    store("cophir-lang", lang);
-    document.querySelectorAll("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
+  /* ---------- Every page change lands at the top ----------
+     Browsers, and some embedded previews, can carry the scroll position over
+     to the next page. Before leaving we reset the current page to the top,
+     and on arrival we hold the new page at the top until the visitor scrolls
+     (unless the link targets a #section). */
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a[href]");
+    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || a.target === "_blank") return;
+    var href = a.getAttribute("href");
+    if (!/\.html(\?|$)/.test(href) && href !== "./" && href !== "../") return;   // internal page, no #anchor
+    session("cophir-nav-top", "1");
+    jumpTop();
+  }, true);
+  var hasTarget = location.hash && location.hash.length > 1 && location.hash !== "#review";
+  if (!hasTarget) {
+    var userMoved = false;
+    var stopHold = function () { userMoved = true; };
+    ["wheel", "touchstart", "keydown", "mousedown"].forEach(function (ev) { window.addEventListener(ev, stopHold, { passive: true, once: true }); });
+    var hold = function () { if (!userMoved && window.scrollY !== 0) jumpTop(); };
+    session("cophir-nav-top");
+    jumpTop();
+    [0, 60, 150, 300, 600, 1000, 1600].forEach(function (ms) { setTimeout(hold, ms); });
+    window.addEventListener("load", hold);
   }
-
-  document.querySelectorAll("[data-lang]").forEach(function (b) {
-    b.addEventListener("click", function () { setLang(b.getAttribute("data-lang")); });
-  });
-  var saved = store("cophir-lang");
-  var browserFr = (navigator.language || "").toLowerCase().indexOf("fr") === 0;
-  setLang(saved || (browserFr ? "fr" : "en"));
+  window.addEventListener("pageshow", function (e) { if (e.persisted && !hasTarget) jumpTop(); });
 
   /* ---------- Header + mobile menu ---------- */
   var header = document.querySelector(".site-header");
@@ -114,6 +111,7 @@
     body.style.overflow = open ? "hidden" : "";
   }
   if (burger && menu) {
+    burger.setAttribute("aria-label", t("openMenu"));
     burger.addEventListener("click", function () { setMenu(!body.classList.contains("menu-open")); });
     menu.addEventListener("click", function (e) { if (e.target.closest("a")) setMenu(false); });
     window.addEventListener("resize", function () { if (window.innerWidth >= 1100) setMenu(false); });
@@ -134,7 +132,6 @@
       });
     }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
     revealEls.forEach(function (el) {
-      // anything already on screen at load is shown immediately
       var r = el.getBoundingClientRect();
       if (r.top < window.innerHeight && r.bottom > 0) el.classList.add("is-in");
       else io.observe(el);
@@ -149,45 +146,27 @@
     var dur = 1400;
     (function frame(now) {
       var p = Math.min(1, (now - start) / dur);
-      var eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(end * eased);
+      el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3)));
       if (p < 1) requestAnimationFrame(frame);
     })(start);
   }
 
-  /* ---------- VSL: inline player that floats while you scroll ----------
-     The film starts in place. If the visitor scrolls away while it plays, it
-     docks in a small player in the corner and keeps playing until they pause,
-     close it or it ends. Scrolling back to the section puts it back in place. */
+  /* ---------- VSL ----------
+     The film plays in place and keeps playing (with sound) while the visitor
+     scrolls; it never covers the page. Picture-in-picture stays available
+     from the player's own controls. */
   var vslFrame = document.querySelector("[data-vsl]");
   if (vslFrame) {
     var player = vslFrame.querySelector("[data-vsl-player]");
     var video = player.querySelector("video");
-    var inView = true;
-    var dismissed = false;
-    function dock() {
-      var float = !inView && !dismissed && !video.paused && !video.ended;
-      if (float === player.classList.contains("is-floating")) return;
-      player.classList.toggle("is-floating", float);
-      vslFrame.classList.toggle("has-floating", float);
-    }
     vslFrame.querySelector("[data-vsl-play]").addEventListener("click", function () {
-      dismissed = false;
       player.hidden = false;
       vslFrame.classList.add("is-playing");
       var p = video.play();
       if (p && p.catch) p.catch(function () {});
       video.focus();
     });
-    player.querySelector("[data-vsl-close]").addEventListener("click", function () {
-      dismissed = true;
-      video.pause();
-      dock();
-    });
-    player.querySelector("[data-vsl-back]").addEventListener("click", function () {
-      vslFrame.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
-    });
-    // Subtitles: if the <track> cannot be loaded (e.g. a host serving .vtt with the
+    // Subtitles: if the <track> cannot be loaded (a host serving .vtt with the
     // wrong type), read the file ourselves and add the cues.
     var trackEl = video.querySelector("track");
     if (trackEl) {
@@ -196,30 +175,41 @@
         video.dataset.cuesLoaded = "1";
         fetch(trackEl.getAttribute("src")).then(function (r) { return r.text(); }).then(function (txt) {
           var tt = video.addTextTrack("subtitles", trackEl.label || "Français", trackEl.srclang || "fr");
-          var sec = function (t) { var p = t.trim().split(":"); return p.length === 3 ? +p[0] * 3600 + +p[1] * 60 + parseFloat(p[2]) : +p[0] * 60 + parseFloat(p[1]); };
+          var sec = function (s) { var p = s.trim().split(":"); return p.length === 3 ? +p[0] * 3600 + +p[1] * 60 + parseFloat(p[2]) : +p[0] * 60 + parseFloat(p[1]); };
           txt.replace(/\r/g, "").split(/\n\n+/).forEach(function (block) {
             var lines = block.split("\n");
             var i = lines.findIndex(function (l) { return l.indexOf("-->") > -1; });
             if (i < 0) return;
-            var t = lines[i].split("-->");
-            tt.addCue(new VTTCue(sec(t[0]), sec(t[1].trim().split(" ")[0]), lines.slice(i + 1).join("\n")));
+            var c = lines[i].split("-->");
+            tt.addCue(new VTTCue(sec(c[0]), sec(c[1].trim().split(" ")[0]), lines.slice(i + 1).join("\n")));
           });
           tt.mode = "showing";
         }).catch(function () {});
       });
     }
-    video.addEventListener("play", function () { dismissed = false; dock(); });
-    video.addEventListener("ended", function () { dismissed = true; dock(); });
-    // a pause keeps the mini player on screen so the visitor can resume; closing removes it
+  }
+
+  /* ---------- "What is missing" chips light up one after another ---------- */
+  var sides = document.querySelector(".sides");
+  if (sides && !reduceMotion) {
+    var lists = Array.prototype.slice.call(sides.querySelectorAll(".missing"));
+    var steps = [];
+    var longest = Math.max.apply(null, lists.map(function (l) { return l.children.length; }));
+    for (var k = 0; k < longest; k++) {
+      lists.forEach(function (l) { if (l.children[k]) steps.push(l.children[k]); });
+    }
+    var idx = -1, timer = null;
+    var tick = function () {
+      if (idx >= 0) steps[idx].classList.remove("is-lit");
+      idx = (idx + 1) % steps.length;
+      steps[idx].classList.add("is-lit");
+    };
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function (en) {
-        inView = en[0].isIntersecting;
-        dock();
-      }, { threshold: 0.25 }).observe(vslFrame);
+        if (en[0].isIntersecting && !timer) { tick(); timer = setInterval(tick, 1300); }
+        else if (!en[0].isIntersecting && timer) { clearInterval(timer); timer = null; }
+      }, { threshold: 0.35 }).observe(sides);
     }
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && player.classList.contains("is-floating")) { dismissed = true; video.pause(); dock(); }
-    });
   }
 
   /* ---------- Subtle motion: hero parallax + 3D tilt on cards ---------- */
@@ -232,8 +222,7 @@
         if (ticking) return;
         ticking = true;
         requestAnimationFrame(function () {
-          var y = Math.min(window.scrollY, 900);
-          heroImg.style.setProperty("--parallax", (y * 0.18).toFixed(1) + "px");
+          heroImg.style.setProperty("--parallax", (Math.min(window.scrollY, 900) * 0.18).toFixed(1) + "px");
           ticking = false;
         });
       }, { passive: true });
@@ -318,11 +307,10 @@
       if (!input || input.type === "file" || !input.value.trim()) return;
       lines.push(label.textContent.trim() + ": " + input.value.trim());
     });
-    var hasFile = Array.prototype.some.call(form.querySelectorAll('input[type="file"]'), function (f) { return f.files && f.files.length; });
     var subject = "COPHIR website – " + (form.id === "capabilities" ? "Capabilities" : "Opportunity");
     var href = "mailto:" + CONTACT_EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(lines.join("\n\n"));
     status.className = "form__status form__status--info";
-    status.innerHTML = t("fallback") + ' <a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + "</a>." + (hasFile ? " " + t("fallbackFile") : "");
+    status.innerHTML = t("fallback") + ' <a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + "</a>.";
     status.hidden = false;
     window.location.href = href;
   }
@@ -363,6 +351,7 @@
   });
 
   /* ---------- Misc ---------- */
+  document.querySelectorAll("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
   // Review mode: add #review to any URL to highlight content still marked [TO CONFIRM] in the brief.
   if (location.hash === "#review" || /[?&]review\b/.test(location.search)) doc.classList.add("review");
 })();

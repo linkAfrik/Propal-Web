@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
-"""Build the COPHIR static site.
+"""Build the COPHIR static site, in English and French.
 
 Assembles src/pages/*.html with the shared header/footer partials into
-ready-to-host HTML files at the site root, and compiles the French
-translations (src/i18n/fr.json) into js/i18n-fr.js.
+ready-to-host pages: English at the site root, French in /fr/. French text
+comes from src/i18n/fr.json and is written into the HTML itself, so both
+languages are indexed by search engines (with hreflang links between them).
 
 Usage:  python3 build.py            build everything
+        python3 build.py --strict   fail if any English string has no French version
         python3 build.py --strings  also list every English string (src/i18n/strings-en.json)
 
 No dependencies beyond the Python 3 standard library.
 """
-import hashlib
 import json
 import re
 import sys
@@ -19,7 +20,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 SRC = ROOT / "src"
 
-# Final production domain. Used for canonical URLs, Open Graph and the sitemap.
+# Final production domain. Used for canonical URLs, hreflang, Open Graph and the sitemap.
 SITE_URL = "https://www.cophir.com"
 
 PAGES = {
@@ -36,25 +37,25 @@ ICONS = {
     "play": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a.8.8 0 0 0 1.2.7l12.2-7.5a.8.8 0 0 0 0-1.4L8.2 3.8A.8.8 0 0 0 7 4.5z"/></svg>',
     "x": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
     "mail": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg>',
-    "expand": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>',
-    "close": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
 }
 
 DATA_T = re.compile(
     r"<(?P<tag>[a-z][a-z0-9]*)(?P<pre>[^<>]*?)\sdata-t(?P<post>(?=[\s>])[^<>]*)>(?P<inner>.*?)</(?P=tag)>",
     re.S,
 )
+ATTR = re.compile(r'\b(alt|aria-label|placeholder|title)="([^"]*)"')
+LOCAL_URL = re.compile(r'\b(src|href|poster)="(assets/|css/|js/)')
 
 
-def norm(html: str) -> str:
+def norm(html):
     return re.sub(r"\s+", " ", html).strip()
 
 
-def key_for(text: str) -> str:
-    return hashlib.sha1(text.encode("utf-8")).hexdigest()[:10]
+def esc(s):
+    return s.replace("&", "&amp;").replace('"', "&quot;").replace("<", "&lt;")
 
 
-def front_matter(raw: str):
+def front_matter(raw):
     m = re.match(r"\s*<!--(.*?)-->\s*", raw, re.S)
     meta = {}
     if m:
@@ -65,12 +66,15 @@ def front_matter(raw: str):
     return meta, raw
 
 
-def esc(s: str) -> str:
-    return s.replace("&", "&amp;").replace('"', "&quot;").replace("<", "&lt;")
+def url_for(page, lang):
+    path = "" if page == "index.html" else page
+    return f"{SITE_URL}/{'fr/' if lang == 'fr' else ''}{path}"
 
 
-def head(meta, page):
-    url = SITE_URL + "/" + ("" if page == "index.html" else page)
+def head(meta, page, lang, fr):
+    title = fr["titles"].get(page, meta["title"]) if lang == "fr" else meta["title"]
+    desc = fr["descriptions"].get(page, meta["description"]) if lang == "fr" else meta["description"]
+    prefix = "../" if lang == "fr" else ""
     image = SITE_URL + "/" + meta.get("image", "assets/img/abidjan.jpg")
     ld = {
         "@context": "https://schema.org",
@@ -79,122 +83,107 @@ def head(meta, page):
         "url": SITE_URL + "/",
         "logo": SITE_URL + "/assets/logo/cophir-logo.png",
         "email": "contact@cophir.com",
-        "description": "Business development firm specialising in West African Oil & Gas.",
+        "description": fr["org"] if lang == "fr" else "Business development firm specialising in West African Oil & Gas.",
         "areaServed": "West Africa",
         "address": {"@type": "PostalAddress", "addressLocality": "Abidjan", "addressCountry": "CI"},
     }
     return f"""<!doctype html>
-<html lang="en">
+<html lang="{lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>{esc(meta['title'])}</title>
-<meta name="description" content="{esc(meta['description'])}">
-<link rel="canonical" href="{url}">
+<title>{esc(title)}</title>
+<meta name="description" content="{esc(desc)}">
+<link rel="canonical" href="{url_for(page, lang)}">
+<link rel="alternate" hreflang="en" href="{url_for(page, 'en')}">
+<link rel="alternate" hreflang="fr" href="{url_for(page, 'fr')}">
+<link rel="alternate" hreflang="x-default" href="{url_for(page, 'en')}">
 <meta name="theme-color" content="#06101d">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="COPHIR">
-<meta property="og:title" content="{esc(meta['title'])}">
-<meta property="og:description" content="{esc(meta['description'])}">
-<meta property="og:url" content="{url}">
+<meta property="og:locale" content="{'fr_FR' if lang == 'fr' else 'en_GB'}">
+<meta property="og:title" content="{esc(title)}">
+<meta property="og:description" content="{esc(desc)}">
+<meta property="og:url" content="{url_for(page, lang)}">
 <meta property="og:image" content="{image}">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/logo/favicon-32.png">
-<link rel="apple-touch-icon" href="assets/logo/mark-180.png">
+<link rel="icon" type="image/png" sizes="32x32" href="{prefix}assets/logo/favicon-32.png">
+<link rel="apple-touch-icon" href="{prefix}assets/logo/mark-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,500;0,600;0,700;0,800;1,500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="{prefix}css/style.css">
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
 </head>
 <body data-page="{PAGES[page]}">
 """
 
 
-MODAL = """
-<div class="modal" id="vsl-modal" role="dialog" aria-modal="true" aria-label="COPHIR film" hidden>
-  <div class="modal__box">
-    <button class="modal__close" type="button" data-video-close aria-label="Close video">{close}</button>
-    <video id="vsl-video" controls playsinline preload="none" poster="assets/img/port-worker.jpg">
-      <source src="assets/video/cophir-vsl.mp4" type="video/mp4">
-    </video>
-    <div class="modal__cta">
-      <span data-t>You already have half of the deal.</span>
-      <div class="btn-row">
-        <a class="btn btn--blue btn--sm" href="contact.html#opportunity"><span data-t>Bring us an opportunity</span></a>
-        <a class="btn btn--primary btn--sm" href="contact.html#capabilities"><span data-t>Show us your capabilities</span></a>
-      </div>
-    </div>
-  </div>
-</div>
-"""
-
-
-def render_icons(html: str) -> str:
-    return re.sub(r"\{\{(\w+)\}\}", lambda m: ICONS[m.group(1)] if m.group(1) in ICONS else m.group(0), html)
-
-
 def main():
     header_tpl = (SRC / "partials/header.html").read_text(encoding="utf-8")
     footer_tpl = (SRC / "partials/footer.html").read_text(encoding="utf-8")
-    fr_src = json.loads((SRC / "i18n/fr.json").read_text(encoding="utf-8"))
-    fr_strings = {norm(k): v for k, v in fr_src.get("strings", {}).items()}
+    fr = json.loads((SRC / "i18n/fr.json").read_text(encoding="utf-8"))
+    fr_strings = {norm(k): v for k, v in fr["strings"].items()}
+    fr_attrs = fr.get("attrs", {})
+    seen, missing, used = set(), [], set()
 
-    seen = {}       # key -> english
-    fr_out = {}     # key -> french
-    missing = []
-
-    def tag_strings(html: str) -> str:
+    def translate(html, lang):
         def sub(m):
             inner = norm(m.group("inner"))
-            k = key_for(inner)
-            seen[k] = inner
-            if inner in fr_strings:
-                fr_out[k] = fr_strings[inner]
-            elif inner not in missing:
-                missing.append(inner)
-            return f'<{m.group("tag")}{m.group("pre")} data-t="{k}"{m.group("post")}>{m.group("inner")}</{m.group("tag")}>'
-        return DATA_T.sub(sub, html)
+            seen.add(inner)
+            out = m.group("inner")
+            if lang == "fr":
+                if inner in fr_strings:
+                    out = fr_strings[inner]
+                    used.add(inner)
+                elif inner not in missing:
+                    missing.append(inner)
+            return f'<{m.group("tag")}{m.group("pre")}{m.group("post")}>{out}</{m.group("tag")}>'
+        html = DATA_T.sub(sub, html)
+        if lang == "fr":
+            html = ATTR.sub(lambda m: f'{m.group(1)}="{fr_attrs.get(m.group(2), m.group(2))}"', html)
+            html = LOCAL_URL.sub(lambda m: f'{m.group(1)}="../{m.group(2)}', html)
+        return html
 
-    titles_fr = {}
+    (ROOT / "fr").mkdir(exist_ok=True)
     for page, nav in PAGES.items():
         meta, body = front_matter((SRC / "pages" / page).read_text(encoding="utf-8"))
-        header = header_tpl
-        for n in PAGES.values():
-            header = header.replace("{{cur:%s}}" % n, 'aria-current="page"' if n == nav else "")
-        header = re.sub(r"\s+>", ">", header)
-        parts = [header, '<main id="main">', body, "</main>", footer_tpl]
-        if meta.get("vsl") == "yes":
-            parts.append(MODAL.replace("{close}", ICONS["close"]))
-        html = "\n".join(parts)
-        html = tag_strings(render_icons(html))
-        out = head(meta, page) + html + '\n<script src="js/i18n-fr.js" defer></script>\n<script src="js/main.js" defer></script>\n</body>\n</html>\n'
-        (ROOT / page).write_text(out, encoding="utf-8")
-        t = fr_src.get("titles", {}).get(page)
-        if t:
-            titles_fr[nav] = t
+        for lang in ("en", "fr"):
+            header = header_tpl
+            for n in PAGES.values():
+                header = header.replace("{{cur:%s}}" % n, 'aria-current="page"' if n == nav else "")
+            header = (header
+                      .replace("{{href_en}}", page if lang == "en" else "../" + page)
+                      .replace("{{href_fr}}", "fr/" + page if lang == "en" else page)
+                      .replace("{{cur_en}}", 'aria-current="true"' if lang == "en" else "")
+                      .replace("{{cur_fr}}", 'aria-current="true"' if lang == "fr" else ""))
+            header = re.sub(r"\s+>", ">", header)
+            html = "\n".join([header, '<main id="main">', body, "</main>", footer_tpl])
+            html = re.sub(r"\{\{(\w+)\}\}", lambda m: ICONS.get(m.group(1), m.group(0)), html)
+            html = translate(html, lang)
+            prefix = "../" if lang == "fr" else ""
+            out = head(meta, page, lang, fr) + html + f'\n<script src="{prefix}js/main.js" defer></script>\n</body>\n</html>\n'
+            (ROOT / ("fr/" + page if lang == "fr" else page)).write_text(out, encoding="utf-8")
 
-    bundle = {"strings": fr_out, "titles": titles_fr, "svg": fr_src.get("svg", {})}
-    (ROOT / "js/i18n-fr.js").write_text(
-        "/* Generated by build.py from src/i18n/fr.json. Do not edit by hand. */\n"
-        "window.COPHIR_FR = " + json.dumps(bundle, ensure_ascii=False, indent=0) + ";\n",
-        encoding="utf-8",
-    )
-
-    urls = "".join(
-        f"  <url><loc>{SITE_URL}/{'' if p == 'index.html' else p}</loc></url>\n" for p in PAGES
-    )
+    urls = ""
+    for p in PAGES:
+        for lang in ("en", "fr"):
+            urls += (f"  <url><loc>{url_for(p, lang)}</loc>"
+                     f'<xhtml:link rel="alternate" hreflang="en" href="{url_for(p, "en")}"/>'
+                     f'<xhtml:link rel="alternate" hreflang="fr" href="{url_for(p, "fr")}"/></url>\n')
     (ROOT / "sitemap.xml").write_text(
-        f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n',
-        encoding="utf-8",
-    )
+        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+        f'xmlns:xhtml="http://www.w3.org/1999/xhtml">\n{urls}</urlset>\n', encoding="utf-8")
     (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n", encoding="utf-8")
 
     if "--strings" in sys.argv:
-        (SRC / "i18n/strings-en.json").write_text(
-            json.dumps(sorted(set(seen.values())), ensure_ascii=False, indent=1), encoding="utf-8"
-        )
-    print(f"Built {len(PAGES)} pages, {len(seen)} translatable strings, {len(fr_out)} translated.")
+        (SRC / "i18n/strings-en.json").write_text(json.dumps(sorted(seen), ensure_ascii=False, indent=1), encoding="utf-8")
+    unused = [k for k in fr_strings if k not in seen]
+    print(f"Built {len(PAGES)} pages x 2 languages, {len(seen)} strings, {len(seen) - len(missing)} translated.")
+    if unused:
+        print(f"Note: {len(unused)} French entries are no longer used:")
+        for s in unused:
+            print("  ~", s[:90])
     if missing:
         print(f"WARNING: {len(missing)} strings have no French translation:")
         for s in missing:

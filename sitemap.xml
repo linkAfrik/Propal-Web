@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.cophir.com/</loc></url>
-  <url><loc>https://www.cophir.com/local-companies.html</loc></url>
-  <url><loc>https://www.cophir.com/international-contractors.html</loc></url>
-  <url><loc>https://www.cophir.com/about.html</loc></url>
-  <url><loc>https://www.cophir.com/contact.html</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://www.cophir.com/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.cophir.com/"/><xhtml:link rel="alternate" hreflang="fr" href="https://www.cophir.com/fr/"/></url>
+  <url><loc>https://www.cophir.com/fr/</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.cophir.com/"/><xhtml:link rel="alternate" hreflang="fr" href="https://www.cophir.com/fr/"/></url>
+  <url><loc>https://www.cophir.com/local-companies.html</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.cophir.com/local-companies.html"/><xhtml:link rel="alternate" hreflang="fr" href="https://www.cophir.com/fr/local-companies.html"/></url>
+  <url><loc>https://www.cophir.com/fr/local-companies.html</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.cophir.com/local-companies.html"/><xhtml:link rel="alternate" hreflang="fr" href="https://www.cophir.com/fr/local-companies.html"/></url>
+  <url><loc>https://www.cophir.com/international-contractors.html</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.cophir.com/international-contractors.html"/><xhtml:link rel="alternate" hreflang="fr" href="https://www.cophir.com/fr/international-contractors.html"/></url>
+  <url><loc>https://www.cophir.com/fr/international-contractors.html</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.cophir.com/international-contractors.html"/><xhtml:link rel="alternate" hreflang="fr" href="https://www.cophir.com/fr/international-contractors.html"/></url>
+  <url><loc>https://www.cophir.com/about.html</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.cophir.com/about.html"/><xhtml:link rel="alternate" hreflang="fr" href="https://www.cophir.com/fr/about.html"/></url>
+  <url><loc>https://www.cophir.com/fr/about.html</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.cophir.com/about.html"/><xhtml:link rel="alternate" hreflang="fr" href="https://www.cophir.com/fr/about.html"/></url>
+  <url><loc>https://www.cophir.com/contact.html</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.cophir.com/contact.html"/><xhtml:link rel="alternate" hreflang="fr" href="https://www.cophir.com/fr/contact.html"/></url>
+  <url><loc>https://www.cophir.com/fr/contact.html</loc><xhtml:link rel="alternate" hreflang="en" href="https://www.cophir.com/contact.html"/><xhtml:link rel="alternate" hreflang="fr" href="https://www.cophir.com/fr/contact.html"/></url>
 </urlset>
