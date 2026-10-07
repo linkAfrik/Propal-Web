@@ -174,38 +174,16 @@
       var p = video.play();
       if (p && p.catch) p.catch(function () {});
     };
-    // Autoplay with sound when the section comes into view. Browsers only
-    // allow sound once the visitor has clicked or tapped the page; until then
-    // the film plays muted (French subtitles on) and the very first click or
-    // tap anywhere turns the sound on and restarts it from the beginning.
-    var waitForGesture = function () {
-      var onGesture = function (e) {
-        if (engaged || e.target.closest("[data-vsl-unmute], video")) return cleanup();
-        if (!video.paused && video.muted) playWithSound(true);
-        cleanup();
-      };
-      var cleanup = function () {
-        ["pointerdown", "keydown", "touchend"].forEach(function (ev) { document.removeEventListener(ev, onGesture, true); });
-      };
-      ["pointerdown", "keydown", "touchend"].forEach(function (ev) { document.addEventListener(ev, onGesture, true); });
-    };
+    // Browsers only allow silent autoplay: the film starts muted, with French
+    // subtitles, when the section comes into view; the "Turn sound on" button
+    // restarts it from the beginning with sound.
     var autoplay = function () {
       if (engaged || !video.paused) return;
-      video.muted = false;
+      video.muted = true;
       var p = video.play();
-      if (!p || !p.then) return;
-      p.then(function () {
-        engaged = true;
-        showPlayer();
-        unmuteBtn.hidden = true;
-      }).catch(function () {
-        video.muted = true;
-        video.play().then(function () {
-          showPlayer();
-          unmuteBtn.hidden = false;
-          waitForGesture();
-        }).catch(function () {});
-      });
+      if (p && p.then) {
+        p.then(function () { showPlayer(); unmuteBtn.hidden = false; }).catch(function () {});
+      }
     };
     vslFrame.querySelector("[data-vsl-play]").addEventListener("click", function () { playWithSound(false); video.focus(); });
     unmuteBtn.addEventListener("click", function () { playWithSound(true); });
@@ -239,6 +217,17 @@
         }).catch(function () {});
       });
     }
+  }
+
+  /* ---------- Hero sectors slider: duplicate the list so the loop is seamless ---------- */
+  var track = document.querySelector("[data-sector-track]");
+  if (track) {
+    Array.prototype.slice.call(track.children).forEach(function (li) {
+      var c = li.cloneNode(true);
+      c.setAttribute("aria-hidden", "true");
+      c.querySelector("a").setAttribute("tabindex", "-1");
+      track.appendChild(c);
+    });
   }
 
   /* ---------- "What is missing" chips light up one after another ---------- */
