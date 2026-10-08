@@ -1182,3 +1182,15 @@ html[lang="fr"] .hero__msg { --fs: clamp(1.45rem, .9rem + 2.1vw, 2.9rem); font-s
   .lang a { padding: 7px 8px; }
   .burger { margin-left: 0; }
 }
+
+/* Titles: each same-colour sentence stays on one line wherever the layout allows */
+.hero--page .hero__content { max-width: none; }
+.hero--page h1 { font-size: clamp(2rem, 1.25rem + 2.3vw, 3.15rem); }
+.pains-foot, .record__intro, .manifesto__lead { max-width: none; }
+.section-head--split { grid-template-columns: 1fr; gap: 16px; }
+.section-head--split .lead { justify-self: start; }
+.cta-band__inner { grid-template-columns: minmax(0, 1fr) auto; }
+.cta-band__mark img { width: 220px; height: auto; }
+@media (max-width: 860px) { .cta-band__inner { grid-template-columns: 1fr; } }
+.cta-band__title { margin-bottom: clamp(20px, 3vw, 32px); }
+.cta-band--split .cta-band__inner > div > p:first-child { margin-top: 0; }

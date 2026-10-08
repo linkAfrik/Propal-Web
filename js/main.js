@@ -407,6 +407,62 @@
     });
   });
 
+  /* ---------- Titles: keep each same-colour sentence on one line ----------
+     A title can hold a white sentence and an orange one (shown on its own
+     line). When a sentence breaks although it would fit at a slightly smaller
+     size, the title is scaled down a little (never below 80%). */
+  var fitSel = "main h1, main h2, .pains-foot, .steps-foot, .rules-foot, .bridge__punch, .tagline-strong";
+  function lineCount(nodes) {
+    var tops = [];
+    nodes.forEach(function (n) {
+      var r = document.createRange();
+      r.selectNodeContents(n);
+      [].forEach.call(r.getClientRects(), function (rc) {
+        if (rc.width < 2) return;
+        var t = Math.round(rc.top);
+        if (!tops.some(function (x) { return Math.abs(x - t) < 4; })) tops.push(t);
+      });
+    });
+    return tops.length;
+  }
+  function groupsOf(el) {
+    var groups = [], cur = [];
+    [].forEach.call(el.childNodes, function (n) {
+      if (n.nodeType === 1 && getComputedStyle(n).display === "block") {
+        if (cur.length) groups.push(cur);
+        groups.push([n]); cur = [];
+      } else if (n.nodeType === 1 || (n.nodeType === 3 && n.textContent.trim())) cur.push(n);
+    });
+    if (cur.length) groups.push(cur);
+    return groups;
+  }
+  function wraps(el) {
+    return groupsOf(el).some(function (g) { return lineCount(g) > 1; });
+  }
+  function fitTitles() {
+    document.querySelectorAll(fitSel).forEach(function (el) {
+      if (el.closest(".hero--home")) return;
+      el.style.transition = "none";   // measure the new size at once (reduced-motion styles add a tiny transition)
+      el.style.fontSize = "";
+      if (window.innerWidth < 900 || !el.offsetParent || !wraps(el)) return;
+      var base = parseFloat(getComputedStyle(el).fontSize);
+      for (var k = 0.96; k >= 0.8; k -= 0.04) {
+        el.style.fontSize = (base * k).toFixed(2) + "px";
+        if (!wraps(el)) return;
+      }
+      el.style.fontSize = "";   // would not fit anyway: keep the design size
+    });
+  }
+  var fitTimer;
+  function scheduleFit() { clearTimeout(fitTimer); fitTimer = setTimeout(fitTitles, 120); }
+  // Run once the web fonts are in (their width decides the line breaks), and again as a safety net.
+  if (document.fonts) {
+    if (document.fonts.ready) document.fonts.ready.then(scheduleFit);
+    if (document.fonts.addEventListener) document.fonts.addEventListener("loadingdone", scheduleFit);
+  }
+  window.addEventListener("load", function () { scheduleFit(); setTimeout(fitTitles, 800); });
+  window.addEventListener("resize", scheduleFit);
+
   /* ---------- Misc ---------- */
   document.querySelectorAll("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
   // Review mode: add #review to any URL to highlight content still marked [TO CONFIRM] in the brief.
