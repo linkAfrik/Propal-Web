@@ -66,7 +66,6 @@
     "You can do the work but <strong>you cannot reach the opportunities</strong>.": "Vous savez exécuter. Mais <strong>vous n'atteignez pas encore les bonnes opportunités</strong>.",
     "Tenders · Projects · Client requirements": "Appels d'offres · Projets · Besoins clients",
     "Technology · People · Track record": "Technologie · Talents · Références",
-    "COPHIR brings both sides together": "COPHIR réunit les deux.",
     "Access <b>without</b> capability loses.": "L'accès <b>sans</b> capacité ne suffit pas.",
     "Capability <b>without</b> access loses.": "La capacité <b>sans</b> accès non plus.",
     "Where do you stand?": "Vous en êtes où&nbsp;?",
@@ -77,9 +76,9 @@
     "You have capabilities.": "Vous avez des capacités.",
     "Show us what you can deliver. We connect you with <strong>opportunities where those capabilities can win business</strong>.": "Montrez-nous ce que vous savez livrer. Nous vous mettons en relation avec <strong>les opportunités où ces capacités peuvent l'emporter</strong>.",
     "How it works": "Comment ça marche",
-    "Find": "Identifier",
-    "Match": "Aligner",
-    "Win": "Remporter",
+    "Find": "Trouver",
+    "Match": "Réunir",
+    "Win": "Gagner",
     "We identify and qualify <strong>real opportunities</strong>: tenders, RFQs, direct client needs.": "Nous identifions et qualifions <strong>les opportunités réelles</strong>&nbsp;: appels d'offres, RFQ, besoins directs de clients.",
     "We identify <strong>the gap</strong> and find <strong>the right company</strong> to fill it: technical partner, equipment, local content, expertise, financing.": "Nous identifions <strong>le manque</strong> et trouvons <strong>l'entreprise capable de le combler</strong>&nbsp;: partenaire technique, équipement, contenu local, expertise, financement.",
     "We help <strong>put the deal together</strong>: roles, commercial terms, bid, local content, negotiation.": "Nous contribuons à <strong>structurer l'opportunité</strong>&nbsp;: rôles, conditions commerciales, offre, contenu local, négociation.",
@@ -237,7 +236,8 @@
     "Active opportunities": "Chaque mois",
     "every month": "des opportunités réelles en cours",
     "<small style=\"margin:0 .15em 0 0\">EUR</small><span data-count=\"5\">5</span>M": "<span data-count=\"5\">5</span>&nbsp;M€",
-    "A UK company operating in Ivory Coast and across West Africa.": "Une entreprise britannique active en Afrique de l'Ouest.",
-    "Tell us what is missing. <strong>We help put the rest together.</strong>": "Dites-nous ce qui manque. <strong>Nous vous aidons à mettre le reste en place.</strong>"
+    "A UK company operating in Ivory Coast and across West Africa.": "Une entreprise britannique active en Côte d'Ivoire et dans toute l'Afrique de l'Ouest.",
+    "Tell us what is missing. <strong>We help put the rest together.</strong>": "Dites-nous ce qui manque. <strong>Nous vous aidons à mettre le reste en place.</strong>",
+    "COPHIR bridges both sides": "COPHIR fait le lien"
   }
 }
