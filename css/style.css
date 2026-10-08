@@ -1110,3 +1110,13 @@ html[lang="fr"] .hero__msg { font-size: clamp(1.45rem, .9rem + 2.1vw, 2.9rem); }
 .aside__addr { font-style: normal; font-size: .9rem; line-height: 1.6; color: var(--on-dark-2); margin: 4px 0 2px; }
 .aside__addr span:first-child { font: 600 .72rem/1 var(--f-display); letter-spacing: .14em; text-transform: uppercase; color: var(--on-dark-3); }
 .choice--opp .eyebrow { color: #a9c4f2 !important; }
+/* Home headline: one text; "and"/"et" shows as "&" on small screens (CSS only, so search engines and screen readers get one sentence) */
+.hero__msg { --fs: clamp(1.7rem, 1.05rem + 2.6vw, 3.4rem); font-size: var(--fs); max-width: 21ch; text-wrap: balance; }
+html[lang="fr"] .hero__msg { --fs: clamp(1.45rem, .9rem + 2.1vw, 2.9rem); font-size: var(--fs); max-width: 36ch; }
+.hero__msg .conj { font-weight: inherit; }
+@media (max-width: 520px) {
+  .hero__msg { max-width: none; }
+  html[lang="fr"] .hero__msg { --fs: 1.3rem; line-height: 1.15; }
+  .hero__msg .conj { font-size: 0; }
+  .hero__msg .conj::after { content: "&"; font-size: var(--fs); }
+}

@@ -1,7 +1,9 @@
 # COPHIR site: Apache settings (Infomaniak)
 
-# Always HTTPS
+# One address only: https://www.cophir.com (301 from cophir.com and from http)
 RewriteEngine On
+RewriteCond %{HTTP_HOST} ^cophir\.com$ [NC]
+RewriteRule ^ https://www.cophir.com%{REQUEST_URI} [L,R=301]
 RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 

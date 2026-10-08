@@ -187,6 +187,12 @@
     vslFrame.querySelector("[data-vsl-play]").addEventListener("click", function () { playWithSound(false); video.focus(); });
     unmuteBtn.addEventListener("click", function () { playWithSound(true); });
     // The "Watch the film" band: start from the beginning, with sound, and bring the film into view.
+    // The orange band repeats its label: the page carries it once, the copies are added here.
+    var run = document.querySelector("[data-marquee]");
+    if (run) {
+      var unit = run.innerHTML;
+      run.innerHTML = unit + unit + unit + unit;
+    }
     var watchBtn = document.querySelector("[data-vsl-watch]");
     if (watchBtn) {
       watchBtn.addEventListener("click", function () {
