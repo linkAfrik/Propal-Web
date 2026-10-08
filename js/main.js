@@ -55,12 +55,12 @@
       closeMenu: "Close menu"
     },
     fr: {
-      required: "Ce champ est nécessaire.",
-      email: "Indiquez une adresse e-mail valide.",
+      required: "Veuillez renseigner ce champ.",
+      email: "Veuillez saisir une adresse e-mail valide.",
       url: "Indiquez une adresse complète, commençant par https://",
       sending: "Envoi en cours…",
-      ok: "Merci, votre message nous est bien parvenu. Nous étudions la pertinence de votre demande et revenons vers vous rapidement.",
-      fallback: "L'envoi en ligne est momentanément indisponible. Votre messagerie va s'ouvrir avec vos réponses déjà saisies : il ne reste qu'à envoyer. Si elle ne s'ouvre pas, écrivez-nous à",
+      ok: "Merci. Votre message a bien été reçu. Nous allons évaluer sa pertinence avant de revenir vers vous.",
+      fallback: "L'envoi en ligne n'est pas disponible pour le moment. Votre application e-mail devrait s'ouvrir avec vos réponses déjà renseignées : il vous suffit de cliquer sur envoyer. Si elle ne s'ouvre pas, écrivez-nous directement à",
       openMenu: "Ouvrir le menu",
       closeMenu: "Fermer le menu"
     }
