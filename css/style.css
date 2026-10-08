@@ -928,16 +928,16 @@ p + p { margin-top: 0; }
   position: absolute; inset: 0; width: 100%; height: 115%; max-width: none; object-fit: cover; object-position: var(--pos, 60% 50%);
   translate: none; will-change: transform, opacity;
 }
-/* 20 s cycle: platform, fade to downstream (fully visible at 5 s), hold, fade back to the platform */
-.hero__media--cycle .hero__frame--up { animation: heroDriftA 20s ease-in-out infinite; }
-.hero__media--cycle .hero__frame--down { opacity: 0; animation: heroFade 20s ease-in-out infinite, heroDriftB 20s ease-in-out infinite; }
-@keyframes heroFade { 0%, 15% { opacity: 0; } 25%, 55% { opacity: 1; } 67%, 100% { opacity: 0; } }
+/* 16 s cycle: platform, fade to downstream (fully visible at 2.5 s), hold, fade back to the platform */
+.hero__media--cycle .hero__frame--up { animation: heroDriftA 16s ease-in-out infinite; }
+.hero__media--cycle .hero__frame--down { opacity: 0; animation: heroFade 16s ease-in-out infinite, heroDriftB 16s ease-in-out infinite; }
+@keyframes heroFade { 0%, 7.5% { opacity: 0; } 15.6%, 53% { opacity: 1; } 62.5%, 100% { opacity: 0; } }
 @keyframes heroDriftA { 0% { transform: scale(1.12); } 25% { transform: scale(1.06); } 70% { transform: scale(1.1); } 100% { transform: scale(1.12); } }
-@keyframes heroDriftB { 0%, 15% { transform: scale(1.02) translateX(0); } 67%, 100% { transform: scale(1.12) translateX(1.5%); } }
+@keyframes heroDriftB { 0%, 7.5% { transform: scale(1.02) translateX(0); } 62.5%, 100% { transform: scale(1.12) translateX(1.5%); } }
 /* reduced motion: keep the cross-fade (no movement), drop the zoom */
 @media (prefers-reduced-motion: reduce) {
   .hero__media--cycle .hero__frame--up { animation: none; transform: none; }
-  .hero__media--cycle .hero__frame--down { animation: heroFade 20s ease-in-out infinite !important; animation-duration: 20s !important; animation-iteration-count: infinite !important; }
+  .hero__media--cycle .hero__frame--down { animation: heroFade 16s ease-in-out infinite !important; animation-duration: 16s !important; animation-iteration-count: infinite !important; }
 }
 
 /* Home hero message: three lines at most ("and" on wide screens, "&" where room is short) */
