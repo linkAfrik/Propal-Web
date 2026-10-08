@@ -928,13 +928,16 @@ p + p { margin-top: 0; }
   position: absolute; inset: 0; width: 100%; height: 115%; max-width: none; object-fit: cover; object-position: var(--pos, 60% 50%);
   translate: none; will-change: transform, opacity;
 }
-.hero__frame--up { animation: heroDriftA 26s ease-in-out infinite alternate; }
-.hero__frame--down { opacity: 0; animation: heroFade 26s ease-in-out infinite, heroDriftB 26s ease-in-out infinite; }
-@keyframes heroFade { 0%, 34% { opacity: 0; } 46%, 84% { opacity: 1; } 96%, 100% { opacity: 0; } }
-@keyframes heroDriftA { from { transform: scale(1.1) translateX(0); } to { transform: scale(1.02) translateX(-1.5%); } }
-@keyframes heroDriftB { from { transform: scale(1.02) translateX(-1%); } to { transform: scale(1.1) translateX(1%); } }
+/* 20 s cycle: platform, fade to downstream (fully visible at 5 s), hold, fade back to the platform */
+.hero__media--cycle .hero__frame--up { animation: heroDriftA 20s ease-in-out infinite; }
+.hero__media--cycle .hero__frame--down { opacity: 0; animation: heroFade 20s ease-in-out infinite, heroDriftB 20s ease-in-out infinite; }
+@keyframes heroFade { 0%, 15% { opacity: 0; } 25%, 55% { opacity: 1; } 67%, 100% { opacity: 0; } }
+@keyframes heroDriftA { 0% { transform: scale(1.12); } 25% { transform: scale(1.06); } 70% { transform: scale(1.1); } 100% { transform: scale(1.12); } }
+@keyframes heroDriftB { 0%, 15% { transform: scale(1.02) translateX(0); } 67%, 100% { transform: scale(1.12) translateX(1.5%); } }
+/* reduced motion: keep the cross-fade (no movement), drop the zoom */
 @media (prefers-reduced-motion: reduce) {
-  .hero__frame--up, .hero__frame--down { animation: none; }
+  .hero__media--cycle .hero__frame--up { animation: none; transform: none; }
+  .hero__media--cycle .hero__frame--down { animation: heroFade 20s ease-in-out infinite !important; animation-duration: 20s !important; animation-iteration-count: infinite !important; }
 }
 
 /* Home hero message: three lines at most ("and" on wide screens, "&" where room is short) */
