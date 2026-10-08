@@ -105,7 +105,7 @@ def head(meta, page, lang, fr):
 <link rel="alternate" hreflang="en" href="{url_for(page, 'en')}">
 <link rel="alternate" hreflang="fr" href="{url_for(page, 'fr')}">
 <link rel="alternate" hreflang="x-default" href="{url_for(page, 'en')}">
-<meta name="theme-color" content="#183456">
+<meta name="theme-color" content="#102238">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="COPHIR">
 <meta property="og:locale" content="{'fr_FR' if lang == 'fr' else 'en_GB'}">
