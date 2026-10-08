@@ -1105,3 +1105,7 @@ html[lang="fr"] .hero__msg { font-size: clamp(1.45rem, .9rem + 2.1vw, 2.9rem); }
 @media (max-width: 1799px) { html[lang="fr"] .site-header .header-ctas { display: none; } }
 @media (min-width: 1100px) and (max-width: 1279px) { html[lang="fr"] .nav { gap: 18px; } html[lang="fr"] .nav a { font-size: .82rem; } }
 .stat__value--word { font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.2rem); }
+/* Registered address */
+.footer-brand__addr { font-style: normal; font-size: .875rem; color: var(--on-dark-3); margin-top: -4px; }
+.aside__addr { font-style: normal; font-size: .9rem; line-height: 1.6; color: var(--on-dark-2); margin: 4px 0 2px; }
+.aside__addr span:first-child { font: 600 .72rem/1 var(--f-display); letter-spacing: .14em; text-transform: uppercase; color: var(--on-dark-3); }

@@ -86,6 +86,13 @@ def head(meta, page, lang, fr):
         "email": "contact@cophir.com",
         "description": fr["org"] if lang == "fr" else "Business development firm specialising in West African Oil & Gas.",
         "areaServed": ["West Africa", "Côte d'Ivoire", "Togo"],
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "71–75 Shelton Street",
+            "addressLocality": "London",
+            "postalCode": "WC2H 9JQ",
+            "addressCountry": "GB",
+        },
     }
     return f"""<!doctype html>
 <html lang="{lang}">
