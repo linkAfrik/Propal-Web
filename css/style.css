@@ -1120,3 +1120,49 @@ html[lang="fr"] .hero__msg { --fs: clamp(1.45rem, .9rem + 2.1vw, 2.9rem); font-s
   .hero__msg .conj { font-size: 0; }
   .hero__msg .conj::after { content: "&"; font-size: var(--fs); }
 }
+
+/* ===== Pass: buttons, punch line, mail bubble, title colours, spacing, mobile film ===== */
+/* Film on phones: full width, centred, nothing wider than the screen */
+.vsl__grid > * { min-width: 0; }
+.vsl__cta-marquee { min-width: 0; }
+@media (max-width: 900px) {
+  .vsl__grid { grid-template-columns: minmax(0, 1fr); }
+  .vsl__frame { width: 100%; aspect-ratio: 1600 / 820; min-height: 0; }
+  .vsl__frame::after { display: none; }
+  .vsl__poster { object-position: center; }
+  .vsl__copy { align-items: center; padding-inline: var(--gutter); }
+  .vsl__cta { margin-inline: auto; max-width: 420px; }
+}
+/* White button for "You have capabilities" */
+.btn--white { --bg: #fff; --fg: var(--navy-950); --bd: #fff; }
+.btn--white:hover { --bg: var(--mist); --bd: var(--mist); }
+/* CTA band: the last sentence on its own line, in bold */
+.punch { display: block; margin-top: 6px; font-weight: 700; color: #fff; }
+/* Two-colour titles: the white sentence and the orange sentence never share a line */
+.hero h1 .accent, .steps-foot .accent, .rules-foot .accent, .record__intro .accent,
+.manifesto__lead .accent, .pains-foot span { display: block; }
+/* Tighter spacing between blocks */
+.section { padding-block: clamp(52px, 6.5vw, 96px); }
+.record.section { padding-block: clamp(48px, 5.5vw, 80px); }
+.section-head { margin-bottom: clamp(32px, 4vw, 52px); }
+@media (max-width: 640px) { .section { padding-block: 52px; } }
+/* Mail bubble, fixed in the corner on every page */
+.mail-bubble {
+  position: fixed; right: clamp(16px, 2.4vw, 28px); bottom: calc(clamp(16px, 2.4vw, 28px) + env(safe-area-inset-bottom, 0px)); z-index: 80;
+  display: grid; place-items: center; width: 58px; height: 58px; border-radius: 50%;
+  background: var(--orange); color: var(--navy-950); box-shadow: 0 10px 28px rgba(0, 0, 0, .28);
+  transition: transform .25s var(--ease), background .25s;
+}
+.mail-bubble svg { width: 26px; height: 26px; }
+.mail-bubble:hover, .mail-bubble:focus-visible { transform: translateY(-3px) scale(1.04); background: #ff9445; }
+.mail-bubble:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.mail-bubble::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--orange); animation: bubblePulse 2.6s var(--ease) infinite; }
+@keyframes bubblePulse { 0% { transform: scale(1); opacity: .6; } 70%, 100% { transform: scale(1.45); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .mail-bubble::after { animation: none; } }
+.menu-open .mail-bubble { display: none; }
+@media (max-width: 480px) {
+  .site-header__inner { gap: 12px; }
+  .brand__base { max-width: 168px; font-size: .55rem; }
+  .lang a { padding: 7px 8px; }
+  .burger { margin-left: 0; }
+}
