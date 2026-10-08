@@ -9,7 +9,7 @@
 <link rel="alternate" hreflang="en" href="https://www.cophir.com/">
 <link rel="alternate" hreflang="fr" href="https://www.cophir.com/fr/">
 <link rel="alternate" hreflang="x-default" href="https://www.cophir.com/">
-<meta name="theme-color" content="#06101d">
+<meta name="theme-color" content="#0c1c31">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="COPHIR">
 <meta property="og:locale" content="en_GB">
@@ -34,6 +34,7 @@
   <div class="container site-header__inner">
     <a class="brand" href="index.html" aria-label="COPHIR">
       <img src="assets/logo/cophir-logo-white.png" alt="COPHIR" width="150" height="40">
+      <span class="brand__base">Business development · West African Oil &amp; Gas</span>
     </a>
     <nav class="nav" aria-label="Main">
       <a href="index.html" aria-current="page"><span>Home</span></a>
@@ -65,17 +66,20 @@
     <a class="btn btn--ghost" href="contact.html#opportunity"><span>You have an opportunity</span></a>
     <a class="btn btn--primary" href="contact.html#capabilities"><span>You have capabilities</span></a>
   </div>
-  <p class="mobile-menu__foot"><span>West African Oil &amp; Gas business development. UK-registered, active across Côte d'Ivoire and Togo.</span><br><a href="mailto:contact@cophir.com">contact@cophir.com</a></p>
+  <p class="mobile-menu__foot"><span>UK company — operations in Ivory Coast and Togo.</span><br><a href="mailto:contact@cophir.com">contact@cophir.com</a></p>
 </div>
 
 <main id="main">
 <section class="hero hero--home">
-  <div class="hero__media"><img src="assets/img/home-platform.jpg" alt="" style="--pos: 70% 50%" fetchpriority="high"></div>
+  <div class="hero__media hero__media--cycle">
+    <img class="hero__frame hero__frame--up" src="assets/img/home-platform.jpg" alt="" style="--pos: 70% 50%" fetchpriority="high">
+    <img class="hero__frame hero__frame--down" src="assets/img/home-downstream.jpg" alt="" style="--pos: 65% 50%" loading="eager" decoding="async">
+  </div>
   <div class="container">
     <div class="hero__grid">
     <div class="hero__content">
       <p class="hero__kicker" data-rise style="--i:0">Do you want more business in West Africa?</p>
-      <h1 class="hero__title" data-rise style="--i:1"><span class="hero__sector">West African Oil &amp; Gas</span><span class="hero__msg">We find the opportunities and the partners that win you more business.</span></h1>
+      <h1 class="hero__title" data-rise style="--i:1"><span class="hero__sector">West African Oil &amp; Gas</span><span class="hero__msg"><span class="hero__msg-l">We find the opportunities and the partners that win you more business.</span><span class="hero__msg-s">We find the opportunities &amp; the partners that win you more business.</span></span></h1>
       <div class="btn-row" data-rise style="--i:2">
         <a class="btn btn--primary" href="contact.html#opportunity"><span>You have an opportunity</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a class="btn btn--ghost" href="contact.html#capabilities"><span>You have capabilities</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -85,24 +89,20 @@
       <p class="hero-sectors__label">Our sectors</p>
       <div class="hero-sectors__viewport">
         <ul class="hero-sectors__track" data-sector-track>
-          <li><a href="#sectors"><span class="hero-sectors__n">01</span><b>Subsea</b><span class="hero-sectors__d">Diving · ROV · Inspection · IRM · Underwater maintenance</span></a></li>
-          <li><a href="#sectors"><span class="hero-sectors__n">02</span><b>Topside</b><span class="hero-sectors__d">Platform maintenance · Integrity and NDT · Mechanical and electrical works</span></a></li>
-          <li><a href="#sectors"><span class="hero-sectors__n">03</span><b>Offshore &amp; Marine</b><span class="hero-sectors__d">Vessels · Marine services and logistics · Offshore support</span></a></li>
-          <li><a href="#sectors"><span class="hero-sectors__n">04</span><b>Downstream</b><span class="hero-sectors__d">Oil storage tank maintenance · Pipeline welding · Terminals</span></a></li>
-          <li><a href="#sectors"><span class="hero-sectors__n">05</span><b>Environmental</b><span class="hero-sectors__d">Waste and effluent management · HSE services</span></a></li>
-          <li><a href="#sectors"><span class="hero-sectors__n">06</span><b>Industrial Procurement</b><span class="hero-sectors__d">Specialised equipment for upstream and downstream projects</span></a></li>
+          <li><a href="#sectors"><b>Subsea</b><span class="hero-sectors__d">Diving · ROV · Inspection · IRM · Underwater maintenance</span></a></li>
+          <li><a href="#sectors"><b>Topside</b><span class="hero-sectors__d">Platform maintenance · Integrity and NDT · Mechanical and electrical works</span></a></li>
+          <li><a href="#sectors"><b>Offshore &amp; Marine</b><span class="hero-sectors__d">Vessels · Marine services and logistics · Offshore support</span></a></li>
+          <li><a href="#sectors"><b>Downstream</b><span class="hero-sectors__d">Oil storage tank maintenance · Pipeline welding · Terminals</span></a></li>
+          <li><a href="#sectors"><b>Environmental</b><span class="hero-sectors__d">Waste and effluent management · HSE services</span></a></li>
+          <li><a href="#sectors"><b>Industrial Procurement</b><span class="hero-sectors__d">Specialised equipment for upstream and downstream projects</span></a></li>
         </ul>
       </div>
     </aside>
     </div>
-    <div class="hero__foot" data-rise style="--i:3">
-      <p>COPHIR, a business development firm specialising in West African Oil &amp; Gas.</p>
-      <span class="geo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg><span>Côte d'Ivoire · Togo<br>West Africa</span></span>
-    </div>
   </div>
 </section>
 
-<section class="vsl" id="film" aria-labelledby="vsl-title">
+<section class="vsl" id="film" aria-describedby="vsl-title">
   <div class="vsl__grid">
     <div class="vsl__frame" data-vsl>
       <img class="vsl__poster" src="assets/img/port-worker.jpg" alt="" loading="lazy">
@@ -118,11 +118,12 @@
       </div>
     </div>
     <div class="vsl__copy" data-reveal>
-      <p class="eyebrow">The missing half</p>
-      <h2 class="h-2" id="vsl-title">See how COPHIR connects opportunities with capability.</h2>
-      <p class="vsl__meta"><b>Watch the film</b><span></span>1:36</p>
-      <p class="vsl__hint">With French subtitles.</p>
-      <p class="fmw">Find<i>.</i> Match<i>.</i> Win<i>.</i></p>
+      <p class="vsl__intro" id="vsl-title">One film. How a local opportunity meets the capability to win it.</p>
+      <button class="vsl__cta" type="button" data-vsl-watch>
+        <span class="vsl__cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a.8.8 0 0 0 1.2.7l12.2-7.5a.8.8 0 0 0 0-1.4L8.2 3.8A.8.8 0 0 0 7 4.5z"/></svg></span>
+        <span class="vsl__cta-marquee" aria-hidden="true"><span class="vsl__cta-run"><span>Watch the film</span><i></i><span>Watch the film</span><i></i><span>Watch the film</span><i></i><span>Watch the film</span><i></i></span></span>
+        <span class="sr-only">Watch the film</span>
+      </button>
     </div>
   </div>
 </section>
@@ -227,6 +228,13 @@
       </li>
     </ol>
     <p class="steps-foot" data-reveal>Deal first. <span class="accent">Everything else follows.</span></p>
+    <div class="cta-inline" data-reveal>
+      <p>Which half do you already hold?</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="contact.html#opportunity"><span>You have an opportunity</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn--ghost" href="contact.html#capabilities"><span>You have capabilities</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -244,7 +252,6 @@
         <li>who has the right references</li>
         <li>who can move when the opportunity appears</li>
       </ul>
-      <p class="closing">COPHIR is built on more than a decade of doing exactly that work in West African Oil &amp; Gas. <span class="accent">Deal by deal.</span></p>
     </div>
   </div>
 </section>
@@ -252,10 +259,8 @@
 <section class="section section--deep record" id="track-record">
   <div class="record__bg"><img src="assets/img/inspection.jpg" alt="" loading="lazy"></div>
   <div class="container">
-    <div class="section-head" data-reveal>
-      <h2 class="h-1">Track record</h2>
-    </div>
-    <div class="stats" data-reveal>
+    <h2 class="record__intro" data-reveal>COPHIR is built on more than a decade of doing exactly that work in West African oil and gas, <span class="accent">deal by deal.</span></h2>
+    <div class="stats stats--anim" data-reveal>
       <div class="stat">
         <p class="stat__value"><span data-count="30">30</span><small>years</small></p>
         <p class="stat__label">of international business experience</p>
@@ -289,7 +294,7 @@
       <article class="sector" data-tilt data-reveal style="--d:0">
         <img src="assets/img/subsea.jpg" alt="" loading="lazy">
         <div class="sector__body">
-          <span class="sector__bar"></span><span class="sector__idx">01 / 06</span>
+          <span class="sector__bar"></span>
           <h3>Subsea</h3>
           <p>Diving · ROV · Inspection · IRM · Underwater maintenance</p>
         </div>
@@ -297,7 +302,7 @@
       <article class="sector" data-tilt data-reveal style="--d:1">
         <img src="assets/img/topside.jpg" alt="" loading="lazy">
         <div class="sector__body">
-          <span class="sector__bar"></span><span class="sector__idx">02 / 06</span>
+          <span class="sector__bar"></span>
           <h3>Topside</h3>
           <p>Platform maintenance · Integrity and NDT · Mechanical and electrical works</p>
         </div>
@@ -305,7 +310,7 @@
       <article class="sector" data-tilt data-reveal style="--d:2">
         <img src="assets/img/offshore.jpg" alt="" loading="lazy">
         <div class="sector__body">
-          <span class="sector__bar"></span><span class="sector__idx">03 / 06</span>
+          <span class="sector__bar"></span>
           <h3>Offshore &amp; Marine</h3>
           <p>Vessels · Marine services and logistics · Offshore support</p>
         </div>
@@ -313,7 +318,7 @@
       <article class="sector" data-tilt data-reveal style="--d:0">
         <img src="assets/img/downstream.jpg" alt="" loading="lazy">
         <div class="sector__body">
-          <span class="sector__bar"></span><span class="sector__idx">04 / 06</span>
+          <span class="sector__bar"></span>
           <h3>Downstream</h3>
           <p>Oil storage tank maintenance · Pipeline welding · Terminals</p>
         </div>
@@ -321,7 +326,7 @@
       <article class="sector" data-tilt data-reveal style="--d:1">
         <img src="assets/img/environmental.jpg" alt="" loading="lazy">
         <div class="sector__body">
-          <span class="sector__bar"></span><span class="sector__idx">05 / 06</span>
+          <span class="sector__bar"></span>
           <h3>Environmental</h3>
           <p>Waste and effluent management · HSE services</p>
         </div>
@@ -329,7 +334,7 @@
       <article class="sector" data-tilt data-reveal style="--d:2">
         <img src="assets/img/procurement.jpg" alt="" loading="lazy">
         <div class="sector__body">
-          <span class="sector__bar"></span><span class="sector__idx">06 / 06</span>
+          <span class="sector__bar"></span>
           <h3>Industrial Procurement</h3>
           <p>Specialised equipment for upstream and downstream projects</p>
         </div>
@@ -363,8 +368,8 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <img src="assets/logo/cophir-logo-white.png" alt="COPHIR" width="150" height="40">
-        <p>We find the opportunities and the partners that win you more business in West African Oil &amp; Gas.</p>
-        <p>UK-registered. Connected across Côte d'Ivoire, Togo and the wider West African market.</p>
+        <p>We find the opportunities and the partners that win you more business in West African oil and gas.</p>
+        <p class="footer-brand__reg">UK company — operations in Ivory Coast and Togo.</p>
       </div>
       <div class="footer-col">
         <h4>Navigate</h4>

@@ -35,15 +35,12 @@ image: assets/img/signing.jpg
           <p class="hp"><label>Leave empty <input name="company_url" tabindex="-1" autocomplete="off"></label></p>
           <div class="form__head">
             <h2 data-t>You have an opportunity.</h2>
-            <p data-t>Tender, project, RFQ, direct client requirement. Tell us what you are working on and what is missing.</p>
+            <p data-t>Tender, project, RFQ, direct client requirement.</p>
           </div>
-          <div class="fields">
-            <div class="field"><label for="o-name" data-t>Name and position</label><input id="o-name" name="name_position" autocomplete="name" required><span class="err"></span></div>
-            <div class="field"><label for="o-company" data-t>Company</label><input id="o-company" name="company" autocomplete="organization" required><span class="err"></span></div>
+          <div class="fields fields--short">
+            <div class="field"><label for="o-name" data-t>Name</label><input id="o-name" name="name" autocomplete="name" required><span class="err"></span></div>
             <div class="field"><label for="o-email" data-t>Email</label><input id="o-email" name="email" type="email" autocomplete="email" required><span class="err"></span></div>
-            <div class="field"><label for="o-country" data-t>Country</label><input id="o-country" name="country" autocomplete="country-name" required><span class="err"></span></div>
-            <div class="field field--full"><label for="o-opp" data-t>Opportunity or project</label><textarea id="o-opp" name="opportunity" required></textarea><span class="err"></span></div>
-            <div class="field field--full"><label for="o-missing" data-t>What is missing?</label><textarea id="o-missing" name="what_is_missing" required></textarea><span class="err"></span></div>
+            <div class="field field--full"><label for="o-msg" data-t>Message</label><textarea id="o-msg" name="message" rows="7" placeholder="Tell us what you are looking for. Include the company involved, the opportunity or capabilities you have, what you are trying to achieve, and what is missing." required></textarea><span class="err"></span></div>
           </div>
           <div class="form__status" role="status" aria-live="polite" hidden></div>
           <div class="form__foot">
@@ -57,17 +54,12 @@ image: assets/img/signing.jpg
           <p class="hp"><label>Leave empty <input name="company_url" tabindex="-1" autocomplete="off"></label></p>
           <div class="form__head">
             <h2 data-t>You have capabilities.</h2>
-            <p data-t>Tell us what you want to deploy in West Africa: what you do well, where you can deploy it, and what kind of business makes sense for you.</p>
+            <p data-t>What you do well, and where you can deploy it in West Africa.</p>
           </div>
-          <div class="fields">
-            <div class="field"><label for="c-name" data-t>Name and position</label><input id="c-name" name="name_position" autocomplete="name" required><span class="err"></span></div>
+          <div class="fields fields--short">
+            <div class="field"><label for="c-name" data-t>Name</label><input id="c-name" name="name" autocomplete="name" required><span class="err"></span></div>
             <div class="field"><label for="c-email" data-t>Email</label><input id="c-email" name="email" type="email" autocomplete="email" required><span class="err"></span></div>
-            <div class="field"><label for="c-company" data-t>Company</label><input id="c-company" name="company" autocomplete="organization" required><span class="err"></span></div>
-            <div class="field"><label for="c-web" data-t>Website</label><input id="c-web" name="website" type="url" placeholder="https://" autocomplete="url"><span class="err"></span></div>
-            <div class="field field--full"><label for="c-core" data-t>Core capabilities</label><textarea id="c-core" name="core_capabilities" required></textarea><span class="err"></span></div>
-            <div class="field field--full"><label for="c-cert" data-t>Key certifications</label><input id="c-cert" name="certifications"><span class="err"></span></div>
-            <div class="field"><label for="c-range" data-t>Countries / mobilisation range</label><input id="c-range" name="mobilisation_range" required><span class="err"></span></div>
-            <div class="field"><label for="c-size" data-t>Typical contract size</label><input id="c-size" name="contract_size" placeholder="e.g. EUR 0.5M – 5M"><span class="err"></span></div>
+            <div class="field field--full"><label for="c-msg" data-t>Message</label><textarea id="c-msg" name="message" rows="7" placeholder="Tell us what you are looking for. Include the company involved, the opportunity or capabilities you have, what you are trying to achieve, and what is missing." required></textarea><span class="err"></span></div>
           </div>
           <div class="form__status" role="status" aria-live="polite" hidden></div>
           <div class="form__foot">

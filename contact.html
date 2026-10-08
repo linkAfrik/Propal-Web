@@ -9,7 +9,7 @@
 <link rel="alternate" hreflang="en" href="https://www.cophir.com/contact.html">
 <link rel="alternate" hreflang="fr" href="https://www.cophir.com/fr/contact.html">
 <link rel="alternate" hreflang="x-default" href="https://www.cophir.com/contact.html">
-<meta name="theme-color" content="#06101d">
+<meta name="theme-color" content="#0c1c31">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="COPHIR">
 <meta property="og:locale" content="en_GB">
@@ -34,6 +34,7 @@
   <div class="container site-header__inner">
     <a class="brand" href="index.html" aria-label="COPHIR">
       <img src="assets/logo/cophir-logo-white.png" alt="COPHIR" width="150" height="40">
+      <span class="brand__base">Business development · West African Oil &amp; Gas</span>
     </a>
     <nav class="nav" aria-label="Main">
       <a href="index.html"><span>Home</span></a>
@@ -65,7 +66,7 @@
     <a class="btn btn--ghost" href="contact.html#opportunity"><span>You have an opportunity</span></a>
     <a class="btn btn--primary" href="contact.html#capabilities"><span>You have capabilities</span></a>
   </div>
-  <p class="mobile-menu__foot"><span>West African Oil &amp; Gas business development. UK-registered, active across Côte d'Ivoire and Togo.</span><br><a href="mailto:contact@cophir.com">contact@cophir.com</a></p>
+  <p class="mobile-menu__foot"><span>UK company — operations in Ivory Coast and Togo.</span><br><a href="mailto:contact@cophir.com">contact@cophir.com</a></p>
 </div>
 
 <main id="main">
@@ -100,15 +101,12 @@
           <p class="hp"><label>Leave empty <input name="company_url" tabindex="-1" autocomplete="off"></label></p>
           <div class="form__head">
             <h2>You have an opportunity.</h2>
-            <p>Tender, project, RFQ, direct client requirement. Tell us what you are working on and what is missing.</p>
+            <p>Tender, project, RFQ, direct client requirement.</p>
           </div>
-          <div class="fields">
-            <div class="field"><label for="o-name">Name and position</label><input id="o-name" name="name_position" autocomplete="name" required><span class="err"></span></div>
-            <div class="field"><label for="o-company">Company</label><input id="o-company" name="company" autocomplete="organization" required><span class="err"></span></div>
+          <div class="fields fields--short">
+            <div class="field"><label for="o-name">Name</label><input id="o-name" name="name" autocomplete="name" required><span class="err"></span></div>
             <div class="field"><label for="o-email">Email</label><input id="o-email" name="email" type="email" autocomplete="email" required><span class="err"></span></div>
-            <div class="field"><label for="o-country">Country</label><input id="o-country" name="country" autocomplete="country-name" required><span class="err"></span></div>
-            <div class="field field--full"><label for="o-opp">Opportunity or project</label><textarea id="o-opp" name="opportunity" required></textarea><span class="err"></span></div>
-            <div class="field field--full"><label for="o-missing">What is missing?</label><textarea id="o-missing" name="what_is_missing" required></textarea><span class="err"></span></div>
+            <div class="field field--full"><label for="o-msg">Message</label><textarea id="o-msg" name="message" rows="7" placeholder="Tell us what you are looking for. Include the company involved, the opportunity or capabilities you have, what you are trying to achieve, and what is missing." required></textarea><span class="err"></span></div>
           </div>
           <div class="form__status" role="status" aria-live="polite" hidden></div>
           <div class="form__foot">
@@ -122,17 +120,12 @@
           <p class="hp"><label>Leave empty <input name="company_url" tabindex="-1" autocomplete="off"></label></p>
           <div class="form__head">
             <h2>You have capabilities.</h2>
-            <p>Tell us what you want to deploy in West Africa: what you do well, where you can deploy it, and what kind of business makes sense for you.</p>
+            <p>What you do well, and where you can deploy it in West Africa.</p>
           </div>
-          <div class="fields">
-            <div class="field"><label for="c-name">Name and position</label><input id="c-name" name="name_position" autocomplete="name" required><span class="err"></span></div>
+          <div class="fields fields--short">
+            <div class="field"><label for="c-name">Name</label><input id="c-name" name="name" autocomplete="name" required><span class="err"></span></div>
             <div class="field"><label for="c-email">Email</label><input id="c-email" name="email" type="email" autocomplete="email" required><span class="err"></span></div>
-            <div class="field"><label for="c-company">Company</label><input id="c-company" name="company" autocomplete="organization" required><span class="err"></span></div>
-            <div class="field"><label for="c-web">Website</label><input id="c-web" name="website" type="url" placeholder="https://" autocomplete="url"><span class="err"></span></div>
-            <div class="field field--full"><label for="c-core">Core capabilities</label><textarea id="c-core" name="core_capabilities" required></textarea><span class="err"></span></div>
-            <div class="field field--full"><label for="c-cert">Key certifications</label><input id="c-cert" name="certifications"><span class="err"></span></div>
-            <div class="field"><label for="c-range">Countries / mobilisation range</label><input id="c-range" name="mobilisation_range" required><span class="err"></span></div>
-            <div class="field"><label for="c-size">Typical contract size</label><input id="c-size" name="contract_size" placeholder="e.g. EUR 0.5M – 5M"><span class="err"></span></div>
+            <div class="field field--full"><label for="c-msg">Message</label><textarea id="c-msg" name="message" rows="7" placeholder="Tell us what you are looking for. Include the company involved, the opportunity or capabilities you have, what you are trying to achieve, and what is missing." required></textarea><span class="err"></span></div>
           </div>
           <div class="form__status" role="status" aria-live="polite" hidden></div>
           <div class="form__foot">
@@ -169,8 +162,8 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <img src="assets/logo/cophir-logo-white.png" alt="COPHIR" width="150" height="40">
-        <p>We find the opportunities and the partners that win you more business in West African Oil &amp; Gas.</p>
-        <p>UK-registered. Connected across Côte d'Ivoire, Togo and the wider West African market.</p>
+        <p>We find the opportunities and the partners that win you more business in West African oil and gas.</p>
+        <p class="footer-brand__reg">UK company — operations in Ivory Coast and Togo.</p>
       </div>
       <div class="footer-col">
         <h4>Navigate</h4>

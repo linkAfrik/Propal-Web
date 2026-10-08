@@ -186,6 +186,17 @@
     };
     vslFrame.querySelector("[data-vsl-play]").addEventListener("click", function () { playWithSound(false); video.focus(); });
     unmuteBtn.addEventListener("click", function () { playWithSound(true); });
+    // The "Watch the film" band: start from the beginning, with sound, and bring the film into view.
+    var watchBtn = document.querySelector("[data-vsl-watch]");
+    if (watchBtn) {
+      watchBtn.addEventListener("click", function () {
+        playWithSound(true);
+        var r = vslFrame.getBoundingClientRect();
+        if (r.top < 0 || r.bottom > window.innerHeight) {
+          vslFrame.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+        }
+      });
+    }
     video.addEventListener("volumechange", function () {
       if (!video.muted && !engaged) { engaged = true; unmuteBtn.hidden = true; }
     });
@@ -255,7 +266,7 @@
   /* ---------- Subtle motion: hero parallax + 3D tilt on cards ---------- */
   var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   if (!reduceMotion) {
-    var heroImg = document.querySelector(".hero__media img");
+    var heroImg = document.querySelector(".hero__media");
     if (heroImg) {
       var ticking = false;
       window.addEventListener("scroll", function () {

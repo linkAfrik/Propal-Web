@@ -9,7 +9,7 @@
 <link rel="alternate" hreflang="en" href="https://www.cophir.com/contact.html">
 <link rel="alternate" hreflang="fr" href="https://www.cophir.com/fr/contact.html">
 <link rel="alternate" hreflang="x-default" href="https://www.cophir.com/contact.html">
-<meta name="theme-color" content="#06101d">
+<meta name="theme-color" content="#0c1c31">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="COPHIR">
 <meta property="og:locale" content="fr_FR">
@@ -34,6 +34,7 @@
   <div class="container site-header__inner">
     <a class="brand" href="index.html" aria-label="COPHIR">
       <img src="../assets/logo/cophir-logo-white.png" alt="COPHIR" width="150" height="40">
+      <span class="brand__base">Développement commercial · Pétrole et gaz en Afrique de l'Ouest</span>
     </a>
     <nav class="nav" aria-label="Navigation principale">
       <a href="index.html"><span>Accueil</span></a>
@@ -65,7 +66,7 @@
     <a class="btn btn--ghost" href="contact.html#opportunity"><span>Vous avez une opportunité</span></a>
     <a class="btn btn--primary" href="contact.html#capabilities"><span>Vous avez le savoir-faire</span></a>
   </div>
-  <p class="mobile-menu__foot"><span>Développement commercial Oil &amp; Gas en Afrique de l'Ouest. Entreprise britannique, active en Côte d'Ivoire et au Togo.</span><br><a href="mailto:contact@cophir.com">contact@cophir.com</a></p>
+  <p class="mobile-menu__foot"><span>Société britannique — opérations en Côte d'Ivoire et au Togo.</span><br><a href="mailto:contact@cophir.com">contact@cophir.com</a></p>
 </div>
 
 <main id="main">
@@ -100,15 +101,12 @@
           <p class="hp"><label>Leave empty <input name="company_url" tabindex="-1" autocomplete="off"></label></p>
           <div class="form__head">
             <h2>Vous avez une opportunité.</h2>
-            <p>Appel d'offres, projet, consultation, besoin client&nbsp;: décrivez-nous votre dossier et ce qui vous manque.</p>
+            <p>Appel d'offres, projet, consultation, besoin client.</p>
           </div>
-          <div class="fields">
-            <div class="field"><label for="o-name">Nom et fonction</label><input id="o-name" name="name_position" autocomplete="name" required><span class="err"></span></div>
-            <div class="field"><label for="o-company">Société</label><input id="o-company" name="company" autocomplete="organization" required><span class="err"></span></div>
+          <div class="fields fields--short">
+            <div class="field"><label for="o-name">Nom</label><input id="o-name" name="name" autocomplete="name" required><span class="err"></span></div>
             <div class="field"><label for="o-email">E-mail</label><input id="o-email" name="email" type="email" autocomplete="email" required><span class="err"></span></div>
-            <div class="field"><label for="o-country">Pays</label><input id="o-country" name="country" autocomplete="country-name" required><span class="err"></span></div>
-            <div class="field field--full"><label for="o-opp">Opportunité ou projet</label><textarea id="o-opp" name="opportunity" required></textarea><span class="err"></span></div>
-            <div class="field field--full"><label for="o-missing">Que vous manque-t-il&nbsp;?</label><textarea id="o-missing" name="what_is_missing" required></textarea><span class="err"></span></div>
+            <div class="field field--full"><label for="o-msg">Message</label><textarea id="o-msg" name="message" rows="7" placeholder="Dites-nous ce que vous recherchez : l'entreprise concernée, l'opportunité ou le savoir-faire dont vous disposez, ce que vous voulez accomplir et ce qui manque." required></textarea><span class="err"></span></div>
           </div>
           <div class="form__status" role="status" aria-live="polite" hidden></div>
           <div class="form__foot">
@@ -122,17 +120,12 @@
           <p class="hp"><label>Leave empty <input name="company_url" tabindex="-1" autocomplete="off"></label></p>
           <div class="form__head">
             <h2>Vous avez le savoir-faire.</h2>
-            <p>Dites-nous ce que vous souhaitez déployer en Afrique de l'Ouest&nbsp;: votre cœur de métier, votre zone d'intervention et les affaires qui vous intéressent.</p>
+            <p>Votre savoir-faire, et où vous pouvez le déployer en Afrique de l'Ouest.</p>
           </div>
-          <div class="fields">
-            <div class="field"><label for="c-name">Nom et fonction</label><input id="c-name" name="name_position" autocomplete="name" required><span class="err"></span></div>
+          <div class="fields fields--short">
+            <div class="field"><label for="c-name">Nom</label><input id="c-name" name="name" autocomplete="name" required><span class="err"></span></div>
             <div class="field"><label for="c-email">E-mail</label><input id="c-email" name="email" type="email" autocomplete="email" required><span class="err"></span></div>
-            <div class="field"><label for="c-company">Société</label><input id="c-company" name="company" autocomplete="organization" required><span class="err"></span></div>
-            <div class="field"><label for="c-web">Site web</label><input id="c-web" name="website" type="url" placeholder="https://" autocomplete="url"><span class="err"></span></div>
-            <div class="field field--full"><label for="c-core">Cœur de métier</label><textarea id="c-core" name="core_capabilities" required></textarea><span class="err"></span></div>
-            <div class="field field--full"><label for="c-cert">Principales certifications</label><input id="c-cert" name="certifications"><span class="err"></span></div>
-            <div class="field"><label for="c-range">Pays / zone de mobilisation</label><input id="c-range" name="mobilisation_range" required><span class="err"></span></div>
-            <div class="field"><label for="c-size">Taille de contrat habituelle</label><input id="c-size" name="contract_size" placeholder="ex. 0,5 à 5 M EUR"><span class="err"></span></div>
+            <div class="field field--full"><label for="c-msg">Message</label><textarea id="c-msg" name="message" rows="7" placeholder="Dites-nous ce que vous recherchez : l'entreprise concernée, l'opportunité ou le savoir-faire dont vous disposez, ce que vous voulez accomplir et ce qui manque." required></textarea><span class="err"></span></div>
           </div>
           <div class="form__status" role="status" aria-live="polite" hidden></div>
           <div class="form__foot">
@@ -169,8 +162,8 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <img src="../assets/logo/cophir-logo-white.png" alt="COPHIR" width="150" height="40">
-        <p>Nous trouvons les opportunités et les partenaires qui font gagner des marchés dans le pétrole et le gaz en Afrique de l'Ouest.</p>
-        <p>Une entreprise britannique qui opère en Afrique de l'Ouest, entre la Côte d'Ivoire et le Togo.</p>
+        <p>Nous trouvons les opportunités et les partenaires qui vous font gagner des marchés dans le pétrole et le gaz en Afrique de l'Ouest.</p>
+        <p class="footer-brand__reg">Société britannique — opérations en Côte d'Ivoire et au Togo.</p>
       </div>
       <div class="footer-col">
         <h4>Navigation</h4>

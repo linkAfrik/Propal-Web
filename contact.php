@@ -1,7 +1,7 @@
 <?php
 /**
  * COPHIR contact forms (Infomaniak / any PHP host).
- * Receives the two website forms and emails them to CONTACT_TO.
+ * Receives the website forms (name, email, message) and emails them to CONTACT_TO.
  * Answers in JSON; the page falls back to a pre-filled email if this fails.
  */
 const CONTACT_TO = 'contact@cophir.com';
@@ -37,18 +37,10 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-$labels = $form === 'capabilities'
-    ? ['name_position' => 'Name and position', 'email' => 'Email', 'company' => 'Company', 'website' => 'Website',
-       'core_capabilities' => 'Core capabilities', 'certifications' => 'Key certifications',
-       'mobilisation_range' => 'Countries / mobilisation range', 'contract_size' => 'Typical contract size']
-    : ['name_position' => 'Name and position', 'company' => 'Company', 'email' => 'Email', 'country' => 'Country',
-       'opportunity' => 'Opportunity or project', 'what_is_missing' => 'What is missing?', 'enquiry' => 'Enquiry'];
+$labels = ['name' => 'Name', 'email' => 'Email', 'message' => 'Message', 'enquiry' => 'Enquiry'];
 
-$required = $form === 'capabilities'
-    ? ['name_position', 'company', 'core_capabilities', 'mobilisation_range']
-    : ['name_position', 'company', 'country', 'opportunity', 'what_is_missing'];
-foreach ($required as $r) {
-    if (field($r) === '') {
+foreach (['name', 'message'] as $r) {
+    if (field($r, 5000) === '') {
         http_response_code(422);
         echo json_encode(['ok' => false, 'error' => 'missing', 'field' => $r]);
         exit;
@@ -57,14 +49,14 @@ foreach ($required as $r) {
 
 $lines = [];
 foreach ($labels as $key => $label) {
-    $v = field($key);
+    $v = field($key, 5000);
     if ($v !== '') $lines[] = $label . ":\n" . $v . "\n";
 }
 $lines[] = 'Sent from: ' . (isset($_SERVER['HTTP_REFERER']) ? mb_substr($_SERVER['HTTP_REFERER'], 0, 300) : 'website');
 
 $subject = $form === 'capabilities' ? 'COPHIR website: capabilities' : 'COPHIR website: opportunity';
-$company = preg_replace('/[\r\n]+/', ' ', field('company', 120));
-$subject .= ' – ' . $company;
+$name = preg_replace('/[\r\n]+/', ' ', field('name', 120));
+$subject .= ' – ' . $name;
 
 $headers = [
     'From: COPHIR website <' . CONTACT_FROM . '>',

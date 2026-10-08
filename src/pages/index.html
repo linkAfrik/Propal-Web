@@ -5,12 +5,15 @@ nav: home
 image: assets/img/home-platform.jpg
 -->
 <section class="hero hero--home">
-  <div class="hero__media"><img src="assets/img/home-platform.jpg" alt="" style="--pos: 70% 50%" fetchpriority="high"></div>
+  <div class="hero__media hero__media--cycle">
+    <img class="hero__frame hero__frame--up" src="assets/img/home-platform.jpg" alt="" style="--pos: 70% 50%" fetchpriority="high">
+    <img class="hero__frame hero__frame--down" src="assets/img/home-downstream.jpg" alt="" style="--pos: 65% 50%" loading="eager" decoding="async">
+  </div>
   <div class="container">
     <div class="hero__grid">
     <div class="hero__content">
       <p class="hero__kicker" data-rise style="--i:0" data-t>Do you want more business in West Africa?</p>
-      <h1 class="hero__title" data-rise style="--i:1"><span class="hero__sector" data-t>West African Oil &amp; Gas</span><span class="hero__msg" data-t>We find the opportunities and the partners that win you more business.</span></h1>
+      <h1 class="hero__title" data-rise style="--i:1"><span class="hero__sector" data-t>West African Oil &amp; Gas</span><span class="hero__msg"><span class="hero__msg-l" data-t>We find the opportunities and the partners that win you more business.</span><span class="hero__msg-s" data-t>We find the opportunities &amp; the partners that win you more business.</span></span></h1>
       <div class="btn-row" data-rise style="--i:2">
         <a class="btn btn--primary" href="contact.html#opportunity"><span data-t>You have an opportunity</span>{{arrow}}</a>
         <a class="btn btn--ghost" href="contact.html#capabilities"><span data-t>You have capabilities</span>{{arrow}}</a>
@@ -20,24 +23,20 @@ image: assets/img/home-platform.jpg
       <p class="hero-sectors__label" data-t>Our sectors</p>
       <div class="hero-sectors__viewport">
         <ul class="hero-sectors__track" data-sector-track>
-          <li><a href="#sectors"><span class="hero-sectors__n">01</span><b data-t>Subsea</b><span class="hero-sectors__d" data-t>Diving · ROV · Inspection · IRM · Underwater maintenance</span></a></li>
-          <li><a href="#sectors"><span class="hero-sectors__n">02</span><b data-t>Topside</b><span class="hero-sectors__d" data-t>Platform maintenance · Integrity and NDT · Mechanical and electrical works</span></a></li>
-          <li><a href="#sectors"><span class="hero-sectors__n">03</span><b data-t>Offshore &amp; Marine</b><span class="hero-sectors__d" data-t>Vessels · Marine services and logistics · Offshore support</span></a></li>
-          <li><a href="#sectors"><span class="hero-sectors__n">04</span><b data-t>Downstream</b><span class="hero-sectors__d" data-t>Oil storage tank maintenance · Pipeline welding · Terminals</span></a></li>
-          <li><a href="#sectors"><span class="hero-sectors__n">05</span><b data-t>Environmental</b><span class="hero-sectors__d" data-t>Waste and effluent management · HSE services</span></a></li>
-          <li><a href="#sectors"><span class="hero-sectors__n">06</span><b data-t>Industrial Procurement</b><span class="hero-sectors__d" data-t>Specialised equipment for upstream and downstream projects</span></a></li>
+          <li><a href="#sectors"><b data-t>Subsea</b><span class="hero-sectors__d" data-t>Diving · ROV · Inspection · IRM · Underwater maintenance</span></a></li>
+          <li><a href="#sectors"><b data-t>Topside</b><span class="hero-sectors__d" data-t>Platform maintenance · Integrity and NDT · Mechanical and electrical works</span></a></li>
+          <li><a href="#sectors"><b data-t>Offshore &amp; Marine</b><span class="hero-sectors__d" data-t>Vessels · Marine services and logistics · Offshore support</span></a></li>
+          <li><a href="#sectors"><b data-t>Downstream</b><span class="hero-sectors__d" data-t>Oil storage tank maintenance · Pipeline welding · Terminals</span></a></li>
+          <li><a href="#sectors"><b data-t>Environmental</b><span class="hero-sectors__d" data-t>Waste and effluent management · HSE services</span></a></li>
+          <li><a href="#sectors"><b data-t>Industrial Procurement</b><span class="hero-sectors__d" data-t>Specialised equipment for upstream and downstream projects</span></a></li>
         </ul>
       </div>
     </aside>
     </div>
-    <div class="hero__foot" data-rise style="--i:3">
-      <p data-t>COPHIR, a business development firm specialising in West African Oil &amp; Gas.</p>
-      <span class="geo">{{pin}}<span data-t>Côte d'Ivoire · Togo<br>West Africa</span></span>
-    </div>
   </div>
 </section>
 
-<section class="vsl" id="film" aria-labelledby="vsl-title">
+<section class="vsl" id="film" aria-describedby="vsl-title">
   <div class="vsl__grid">
     <div class="vsl__frame" data-vsl>
       <img class="vsl__poster" src="assets/img/port-worker.jpg" alt="" loading="lazy">
@@ -53,11 +52,12 @@ image: assets/img/home-platform.jpg
       </div>
     </div>
     <div class="vsl__copy" data-reveal>
-      <p class="eyebrow" data-t>The missing half</p>
-      <h2 class="h-2" id="vsl-title" data-t>See how COPHIR connects opportunities with capability.</h2>
-      <p class="vsl__meta"><b data-t>Watch the film</b><span></span>1:36</p>
-      <p class="vsl__hint" data-t>With French subtitles.</p>
-      <p class="fmw" data-t>Find<i>.</i> Match<i>.</i> Win<i>.</i></p>
+      <p class="vsl__intro" id="vsl-title" data-t>One film. How a local opportunity meets the capability to win it.</p>
+      <button class="vsl__cta" type="button" data-vsl-watch>
+        <span class="vsl__cta-icon" aria-hidden="true">{{play}}</span>
+        <span class="vsl__cta-marquee" aria-hidden="true"><span class="vsl__cta-run"><span data-t>Watch the film</span><i></i><span data-t>Watch the film</span><i></i><span data-t>Watch the film</span><i></i><span data-t>Watch the film</span><i></i></span></span>
+        <span class="sr-only" data-t>Watch the film</span>
+      </button>
     </div>
   </div>
 </section>
@@ -162,6 +162,13 @@ image: assets/img/home-platform.jpg
       </li>
     </ol>
     <p class="steps-foot" data-reveal data-t>Deal first. <span class="accent">Everything else follows.</span></p>
+    <div class="cta-inline" data-reveal>
+      <p data-t>Which half do you already hold?</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="contact.html#opportunity"><span data-t>You have an opportunity</span>{{arrow}}</a>
+        <a class="btn btn--ghost" href="contact.html#capabilities"><span data-t>You have capabilities</span>{{arrow}}</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -179,7 +186,6 @@ image: assets/img/home-platform.jpg
         <li data-t>who has the right references</li>
         <li data-t>who can move when the opportunity appears</li>
       </ul>
-      <p class="closing" data-t>COPHIR is built on more than a decade of doing exactly that work in West African Oil &amp; Gas. <span class="accent">Deal by deal.</span></p>
     </div>
   </div>
 </section>
@@ -187,10 +193,8 @@ image: assets/img/home-platform.jpg
 <section class="section section--deep record" id="track-record">
   <div class="record__bg"><img src="assets/img/inspection.jpg" alt="" loading="lazy"></div>
   <div class="container">
-    <div class="section-head" data-reveal>
-      <h2 class="h-1" data-t>Track record</h2>
-    </div>
-    <div class="stats" data-reveal>
+    <h2 class="record__intro" data-reveal data-t>COPHIR is built on more than a decade of doing exactly that work in West African oil and gas, <span class="accent">deal by deal.</span></h2>
+    <div class="stats stats--anim" data-reveal>
       <div class="stat">
         <p class="stat__value"><span data-count="30">30</span><small data-t>years</small></p>
         <p class="stat__label" data-t>of international business experience</p>
@@ -224,7 +228,7 @@ image: assets/img/home-platform.jpg
       <article class="sector" data-tilt data-reveal style="--d:0">
         <img src="assets/img/subsea.jpg" alt="" loading="lazy">
         <div class="sector__body">
-          <span class="sector__bar"></span><span class="sector__idx">01 / 06</span>
+          <span class="sector__bar"></span>
           <h3 data-t>Subsea</h3>
           <p data-t>Diving · ROV · Inspection · IRM · Underwater maintenance</p>
         </div>
@@ -232,7 +236,7 @@ image: assets/img/home-platform.jpg
       <article class="sector" data-tilt data-reveal style="--d:1">
         <img src="assets/img/topside.jpg" alt="" loading="lazy">
         <div class="sector__body">
-          <span class="sector__bar"></span><span class="sector__idx">02 / 06</span>
+          <span class="sector__bar"></span>
           <h3 data-t>Topside</h3>
           <p data-t>Platform maintenance · Integrity and NDT · Mechanical and electrical works</p>
         </div>
@@ -240,7 +244,7 @@ image: assets/img/home-platform.jpg
       <article class="sector" data-tilt data-reveal style="--d:2">
         <img src="assets/img/offshore.jpg" alt="" loading="lazy">
         <div class="sector__body">
-          <span class="sector__bar"></span><span class="sector__idx">03 / 06</span>
+          <span class="sector__bar"></span>
           <h3 data-t>Offshore &amp; Marine</h3>
           <p data-t>Vessels · Marine services and logistics · Offshore support</p>
         </div>
@@ -248,7 +252,7 @@ image: assets/img/home-platform.jpg
       <article class="sector" data-tilt data-reveal style="--d:0">
         <img src="assets/img/downstream.jpg" alt="" loading="lazy">
         <div class="sector__body">
-          <span class="sector__bar"></span><span class="sector__idx">04 / 06</span>
+          <span class="sector__bar"></span>
           <h3 data-t>Downstream</h3>
           <p data-t>Oil storage tank maintenance · Pipeline welding · Terminals</p>
         </div>
@@ -256,7 +260,7 @@ image: assets/img/home-platform.jpg
       <article class="sector" data-tilt data-reveal style="--d:1">
         <img src="assets/img/environmental.jpg" alt="" loading="lazy">
         <div class="sector__body">
-          <span class="sector__bar"></span><span class="sector__idx">05 / 06</span>
+          <span class="sector__bar"></span>
           <h3 data-t>Environmental</h3>
           <p data-t>Waste and effluent management · HSE services</p>
         </div>
@@ -264,7 +268,7 @@ image: assets/img/home-platform.jpg
       <article class="sector" data-tilt data-reveal style="--d:2">
         <img src="assets/img/procurement.jpg" alt="" loading="lazy">
         <div class="sector__body">
-          <span class="sector__bar"></span><span class="sector__idx">06 / 06</span>
+          <span class="sector__bar"></span>
           <h3 data-t>Industrial Procurement</h3>
           <p data-t>Specialised equipment for upstream and downstream projects</p>
         </div>
