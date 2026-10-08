@@ -12,7 +12,7 @@ Usage:  python3 build.py            build everything
 
 No dependencies beyond the Python 3 standard library.
 """
-import json
+import hashlib, json
 import re
 import sys
 from pathlib import Path
@@ -31,12 +31,17 @@ PAGES = {
     "contact.html": "contact",
 }
 
+# Version stamp for the stylesheet and script, so browsers fetch the new files after each deploy
+ROOT_DIR = __import__("pathlib").Path(__file__).resolve().parent
+ASSET_V = hashlib.sha1((ROOT_DIR / "css/style.css").read_bytes() + (ROOT_DIR / "js/main.js").read_bytes()).hexdigest()[:10]
+
 ICONS = {
     "arrow": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
     "pin": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>',
     "play": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a.8.8 0 0 0 1.2.7l12.2-7.5a.8.8 0 0 0 0-1.4L8.2 3.8A.8.8 0 0 0 7 4.5z"/></svg>',
     "x": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
     "sound": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>',
+    "envelope": '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M4 5h16a2 2 0 0 1 2 2v.35l-10 6.25L2 7.35V7a2 2 0 0 1 2-2Zm-2 4.7 9.47 5.92a1 1 0 0 0 1.06 0L22 9.7V17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.7Z"/></svg>',
     "mail": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg>',
 }
 
@@ -121,7 +126,7 @@ def head(meta, page, lang, fr):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,500;0,600;0,700;0,800;1,500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="{prefix}css/style.css">
+<link rel="stylesheet" href="{prefix}css/style.css?v={ASSET_V}">
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
 </head>
 <body data-page="{PAGES[page]}">
@@ -171,7 +176,7 @@ def main():
             html = re.sub(r"\{\{(\w+)\}\}", lambda m: ICONS.get(m.group(1), m.group(0)), html)
             html = translate(html, lang)
             prefix = "../" if lang == "fr" else ""
-            out = head(meta, page, lang, fr) + html + f'\n<script src="{prefix}js/main.js" defer></script>\n</body>\n</html>\n'
+            out = head(meta, page, lang, fr) + html + f'\n<script src="{prefix}js/main.js?v={ASSET_V}" defer></script>\n</body>\n</html>\n'
             (ROOT / ("fr/" + page if lang == "fr" else page)).write_text(out, encoding="utf-8")
 
     urls = ""
