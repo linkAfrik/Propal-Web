@@ -20,6 +20,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 SRC = ROOT / "src"
 
+# Company profiles to link from the structured data (LinkedIn page, etc.).
+SAME_AS = []
+BUILD_DATE = __import__("datetime").date.today().isoformat()
+
 # Final production domain. Used for canonical URLs, hreflang, Open Graph and the sitemap.
 SITE_URL = "https://www.cophir.com"
 
@@ -95,22 +99,42 @@ def head(meta, page, lang, fr):
     desc = fr["descriptions"].get(page, meta["description"]) if lang == "fr" else meta["description"]
     prefix = "../" if lang == "fr" else ""
     image = SITE_URL + "/" + meta.get("image", "assets/img/home-platform.jpg")
+    org_id = SITE_URL + "/#organization"
     ld = {
         "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "COPHIR",
-        "url": SITE_URL + "/",
-        "logo": SITE_URL + "/assets/logo/cophir-logo.png",
-        "email": "contact@cophir.com",
-        "description": fr["org"] if lang == "fr" else "Business development firm specialising in West African Oil & Gas.",
-        "areaServed": ["West Africa", "Côte d'Ivoire", "Togo"],
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "71–75 Shelton Street",
-            "addressLocality": "London",
-            "postalCode": "WC2H 9JQ",
-            "addressCountry": "GB",
-        },
+        "@graph": [
+            {
+                "@type": ["Organization", "ProfessionalService"],
+                "@id": org_id,
+                "name": "COPHIR",
+                "url": SITE_URL + "/",
+                "logo": SITE_URL + "/assets/logo/cophir-logo.png",
+                "image": image,
+                "email": "contact@cophir.com",
+                "description": fr["org"] if lang == "fr" else "Business development firm for Oil & Gas in West Africa, working across Côte d'Ivoire and Togo.",
+                "areaServed": [{"@type": "Place", "name": n} for n in ("Côte d'Ivoire", "Togo", "West Africa")],
+                "knowsLanguage": ["en", "fr"],
+                "knowsAbout": ["Oil and gas business development", "Local content", "Tenders", "Subsea", "Offshore", "Downstream", "Industrial procurement"],
+                "founder": {"@type": "Person", "name": "Jacques Coquerel", "jobTitle": "Founder"},
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "71–75 Shelton Street",
+                    "addressLocality": "London",
+                    "postalCode": "WC2H 9JQ",
+                    "addressCountry": "GB",
+                },
+                "contactPoint": {"@type": "ContactPoint", "contactType": "sales", "email": "contact@cophir.com", "availableLanguage": ["English", "French"]},
+                **({"sameAs": SAME_AS} if SAME_AS else {}),
+            },
+            {
+                "@type": "WebSite",
+                "@id": SITE_URL + "/#website",
+                "url": SITE_URL + "/",
+                "name": "COPHIR",
+                "inLanguage": ["en", "fr"],
+                "publisher": {"@id": org_id},
+            },
+        ],
     }
     return f"""<!doctype html>
 <html lang="{lang}">
@@ -196,7 +220,7 @@ def main():
     urls = ""
     for p in PAGES:
         for lang in ("en", "fr"):
-            urls += (f"  <url><loc>{url_for(p, lang)}</loc>"
+            urls += (f"  <url><loc>{url_for(p, lang)}</loc><lastmod>{BUILD_DATE}</lastmod>"
                      f'<xhtml:link rel="alternate" hreflang="en" href="{url_for(p, "en")}"/>'
                      f'<xhtml:link rel="alternate" hreflang="fr" href="{url_for(p, "fr")}"/></url>\n')
     (ROOT / "sitemap.xml").write_text(
