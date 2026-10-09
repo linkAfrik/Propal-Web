@@ -1198,3 +1198,5 @@ html[lang="fr"] .hero__msg { --fs: clamp(1.45rem, .9rem + 2.1vw, 2.9rem); font-s
 .brand img { height: 44px; }
 @media (max-width: 1099px) { .brand img { height: 36px; } }
 @media (max-width: 480px) { .brand img { height: 32px; } }
+.footer-social { display: inline-flex; align-items: center; gap: 8px; }
+.footer-social svg { width: 16px; height: 16px; flex: none; }
