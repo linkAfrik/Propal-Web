@@ -50,6 +50,19 @@ DATA_T = re.compile(
     re.S,
 )
 ATTR = re.compile(r'\b(alt|aria-label|placeholder|title)="([^"]*)"')
+# Clean addresses: links to "about.html" become "about", "index.html" becomes "./" (the server maps them back)
+PAGE_LINK = re.compile(r'href="((?:\.\./|fr/)?)(index|local-companies|international-contractors|about|contact)\.html(#[^"]*)?"')
+
+
+def clean_links(html):
+    def rep(m):
+        prefix, name, frag = m.group(1), m.group(2), m.group(3) or ""
+        if name == "index":
+            return f'href="{prefix or "./"}{frag}"'
+        return f'href="{prefix}{name}{frag}"'
+    return PAGE_LINK.sub(rep, html)
+
+
 LOCAL_URL = re.compile(r'\b(src|href|poster)="(assets/|css/|js/)')
 
 
@@ -73,7 +86,7 @@ def front_matter(raw):
 
 
 def url_for(page, lang):
-    path = "" if page == "index.html" else page
+    path = "" if page == "index.html" else page[:-5]
     return f"{SITE_URL}/{'fr/' if lang == 'fr' else ''}{path}"
 
 
@@ -175,6 +188,7 @@ def main():
             html = "\n".join([header, '<main id="main">', body, "</main>", footer_tpl])
             html = re.sub(r"\{\{(\w+)\}\}", lambda m: ICONS.get(m.group(1), m.group(0)), html)
             html = translate(html, lang)
+            html = clean_links(html)
             prefix = "../" if lang == "fr" else ""
             out = head(meta, page, lang, fr) + html + f'\n<script src="{prefix}js/main.js?v={ASSET_V}" defer></script>\n</body>\n</html>\n'
             (ROOT / ("fr/" + page if lang == "fr" else page)).write_text(out, encoding="utf-8")

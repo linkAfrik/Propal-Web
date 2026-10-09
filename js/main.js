@@ -77,7 +77,7 @@
     var a = e.target.closest && e.target.closest("a[href]");
     if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || a.target === "_blank") return;
     var href = a.getAttribute("href");
-    if (!/\.html(\?|$)/.test(href) && href !== "./" && href !== "../") return;   // internal page, no #anchor
+    if (/^(#|mailto:|tel:|https?:|\/\/)/.test(href) || href.indexOf("#") >= 0) return;   // only plain internal pages (no #anchor)
     session("cophir-nav-top", "1");
     jumpTop();
   }, true);

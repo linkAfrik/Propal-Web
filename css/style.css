@@ -1194,3 +1194,7 @@ html[lang="fr"] .hero__msg { --fs: clamp(1.45rem, .9rem + 2.1vw, 2.9rem); font-s
 @media (max-width: 860px) { .cta-band__inner { grid-template-columns: 1fr; } }
 .cta-band__title { margin-bottom: clamp(20px, 3vw, 32px); }
 .cta-band--split .cta-band__inner > div > p:first-child { margin-top: 0; }
+/* Header logo: bolder file, a touch larger */
+.brand img { height: 44px; }
+@media (max-width: 1099px) { .brand img { height: 36px; } }
+@media (max-width: 480px) { .brand img { height: 32px; } }
