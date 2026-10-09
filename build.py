@@ -132,10 +132,10 @@ def head(meta, page, lang, fr):
 <meta property="og:url" content="{url_for(page, lang)}">
 <meta property="og:image" content="{image}">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="{prefix}favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="{prefix}assets/logo/favicon-32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="{prefix}assets/logo/icon-192.png">
-<link rel="apple-touch-icon" href="{prefix}assets/logo/apple-touch-icon.png">
+<link rel="icon" href="{prefix}favicon.ico?v=3" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="{prefix}assets/logo/favicon-32.png?v=3">
+<link rel="icon" type="image/png" sizes="192x192" href="{prefix}assets/logo/icon-192.png?v=3">
+<link rel="apple-touch-icon" href="{prefix}assets/logo/apple-touch-icon.png?v=3">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,500;0,600;0,700;0,800;1,500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
