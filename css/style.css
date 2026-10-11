@@ -1198,5 +1198,8 @@ html[lang="fr"] .hero__msg { --fs: clamp(1.45rem, .9rem + 2.1vw, 2.9rem); font-s
 .brand img { height: 44px; }
 @media (max-width: 1099px) { .brand img { height: 36px; } }
 @media (max-width: 480px) { .brand img { height: 32px; } }
-.footer-social { display: inline-flex; align-items: center; gap: 8px; }
-.footer-social svg { width: 16px; height: 16px; flex: none; }
+/* LinkedIn link in the footer: small square badge + label, aligned with the other links */
+.footer-col a.footer-social { display: inline-flex; align-items: center; gap: 10px; margin-top: 8px; padding: 0; line-height: 1; }
+.footer-social svg { width: 15px; height: 15px; flex: none; }
+.footer-social svg { box-sizing: content-box; padding: 7px; border-radius: 6px; border: 1px solid var(--line-dark); background: rgba(255, 255, 255, .06); color: #fff; transition: background .2s, border-color .2s, color .2s; }
+.footer-col a.footer-social:hover svg { background: var(--orange); border-color: var(--orange); color: var(--navy-950); }
