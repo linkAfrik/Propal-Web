@@ -62,3 +62,14 @@ jobs:
             --exclude '.git*' --exclude '.github/' --exclude 'src/' --exclude 'build.py' --exclude 'README.md' \
             -e "ssh -i ~/.ssh/deploy_key -p $PORT -o StrictHostKeyChecking=yes" \
             ./ "$USER@$HOST:$TARGET/"
+
+      - name: Notify search engines (IndexNow)
+        if: steps.cfg.outputs.ready == 'true'
+        continue-on-error: true
+        run: |
+          # Tells Bing and the other IndexNow engines that the pages listed in the sitemap changed.
+          KEY=$(ls *.txt | grep -E '^[0-9a-f]{32}\.txt$' | head -1 | sed 's/\.txt$//')
+          [ -n "$KEY" ] || exit 0
+          URLS=$(grep -o '<loc>[^<]*' sitemap.xml | sed 's/<loc>//' | python3 -c 'import sys,json;print(json.dumps([l.strip() for l in sys.stdin if l.strip()]))')
+          printf '{"host":"www.cophir.com","key":"%s","keyLocation":"https://www.cophir.com/%s.txt","urlList":%s}' "$KEY" "$KEY" "$URLS" > /tmp/indexnow.json
+          curl -sS -o /dev/null -w "IndexNow: HTTP %{http_code}\n" -X POST -H "Content-Type: application/json; charset=utf-8" --data @/tmp/indexnow.json https://api.indexnow.org/indexnow
