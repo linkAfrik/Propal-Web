@@ -33,6 +33,12 @@ PAGES = {
     "international-contractors.html": "intl",
     "about.html": "about",
     "contact.html": "contact",
+    "subsea.html": "sectors",
+    "topside.html": "sectors",
+    "offshore-marine.html": "sectors",
+    "downstream.html": "sectors",
+    "environmental.html": "sectors",
+    "industrial-procurement.html": "sectors",
 }
 
 # Version stamp for the stylesheet and script, so browsers fetch the new files after each deploy
@@ -56,7 +62,7 @@ DATA_T = re.compile(
 )
 ATTR = re.compile(r'\b(alt|aria-label|placeholder|title)="([^"]*)"')
 # Clean addresses: links to "about.html" become "about", "index.html" becomes "./" (the server maps them back)
-PAGE_LINK = re.compile(r'href="((?:\.\./|fr/)?)(index|local-companies|international-contractors|about|contact)\.html(#[^"]*)?"')
+PAGE_LINK = re.compile(r'href="((?:\.\./|fr/)?)(index|local-companies|international-contractors|about|contact|subsea|topside|offshore-marine|downstream|environmental|industrial-procurement)\.html(#[^"]*)?"')
 
 
 def clean_links(html):
