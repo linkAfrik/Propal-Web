@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parent
 SRC = ROOT / "src"
 
 # Company profiles to link from the structured data (LinkedIn page, etc.).
-SAME_AS = ["https://www.linkedin.com/company/112598465/"]
+SAME_AS = ["https://www.linkedin.com/company/cophir/"]
 BUILD_DATE = __import__("datetime").date.today().isoformat()
 
 # Final production domain. Used for canonical URLs, hreflang, Open Graph and the sitemap.
@@ -114,6 +114,10 @@ def head(meta, page, lang, fr):
                 "@type": ["Organization", "ProfessionalService"],
                 "@id": org_id,
                 "name": "COPHIR",
+                "legalName": "COPHIR LTD",
+                "alternateName": "LinkAfrik Advisory Ltd",
+                "foundingDate": "2026-01-05",
+                "identifier": {"@type": "PropertyValue", "propertyID": "Companies House (England and Wales)", "value": "16942058"},
                 "url": SITE_URL + "/",
                 "logo": SITE_URL + "/assets/logo/cophir-logo.png",
                 "image": image,
@@ -121,7 +125,7 @@ def head(meta, page, lang, fr):
                 "description": fr["org"] if lang == "fr" else "Business development firm for Oil & Gas in West Africa, working across Côte d'Ivoire and Togo.",
                 "areaServed": [{"@type": "Place", "name": n} for n in ("Côte d'Ivoire", "Togo", "West Africa")],
                 "knowsLanguage": ["en", "fr"],
-                "knowsAbout": ["Oil and gas business development", "Local content", "Tenders", "Subsea", "Offshore", "Downstream", "Industrial procurement"],
+                "knowsAbout": ["Oil and gas business development", "Local content", "Tenders", "Partner sourcing", "Subsea", "Topside", "Offshore and marine services", "Downstream", "Environmental services", "Industrial procurement"],
                 "founder": {"@type": "Person", "name": "Jacques Coquerel", "jobTitle": "Founder"},
                 "address": {
                     "@type": "PostalAddress",

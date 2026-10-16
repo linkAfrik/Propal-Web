@@ -1,6 +1,6 @@
 # COPHIR
 
-> COPHIR is a business development firm for the Oil & Gas sector in West Africa. It finds and qualifies real opportunities (tenders, RFQs, direct client needs) in Côte d'Ivoire and the wider region, and brings together the partners able to win them: local companies, international contractors, specialists and suppliers. UK company (registered office: 71–75 Shelton Street, London WC2H 9JQ), working across Côte d'Ivoire and West Africa. Founder: Jacques Coquerel. Contact: contact@cophir.com.
+> COPHIR is a business development firm for the Oil & Gas sector in West Africa. It finds and qualifies real opportunities (tenders, RFQs, direct client needs) in Côte d'Ivoire and the wider region, and brings together the partners able to win them: local companies, international contractors, specialists and suppliers. COPHIR LTD, formerly LinkAfrik Advisory Ltd (renamed in September 2026), company no. 16942058, registered in England and Wales (registered office: 71–75 Shelton Street, London WC2H 9JQ), working across Côte d'Ivoire and West Africa. Founder: Jacques Coquerel. Contact: contact@cophir.com.
 
 COPHIR (version française) : cabinet de développement commercial Oil & Gas en Afrique de l'Ouest. Il identifie les opportunités et réunit les partenaires locaux et internationaux capables de les remporter, notamment en Côte d'Ivoire.
 
@@ -31,4 +31,4 @@ COPHIR (version française) : cabinet de développement commercial Oil & Gas en 
 
 ## Elsewhere
 
-- [LinkedIn](https://www.linkedin.com/company/112598465/)
+- [LinkedIn](https://www.linkedin.com/company/cophir/)

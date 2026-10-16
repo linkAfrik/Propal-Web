@@ -62,7 +62,6 @@
     "Contact": "Contact",
     "Navigate": "Navigation",
     "Start a conversation": "Entrer en contact",
-    "&copy; <span data-year>2026</span> COPHIR. Oil &amp; Gas business development in West Africa. All rights reserved.": "&copy; <span data-year>2026</span> COPHIR. Développement commercial Oil &amp; Gas en Afrique de l'Ouest. Tous droits réservés.",
     "Côte d'Ivoire": "Côte d'Ivoire",
     "Do you want more business in West Africa?": "Vous voulez développer votre activité en Afrique de l'Ouest&nbsp;?",
     "Watch the film": "Voir le film",
@@ -356,6 +355,7 @@
     "manufacturer products": "produits fabricants",
     "certifications and datasheets": "certifications et fiches techniques",
     "competitive pricing": "prix compétitifs",
-    "delivery capacity": "capacité de livraison"
+    "delivery capacity": "capacité de livraison",
+    "&copy; <span data-year>2026</span> COPHIR LTD (formerly LinkAfrik Advisory Ltd), company no. 16942058, registered in England and Wales. All rights reserved.": "&copy; <span data-year>2026</span> COPHIR LTD (anciennement LinkAfrik Advisory Ltd), société n° 16942058 immatriculée en Angleterre et au pays de Galles. Tous droits réservés."
   }
 }
