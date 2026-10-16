@@ -15,6 +15,7 @@ No dependencies beyond the Python 3 standard library.
 import hashlib, json
 import re
 import sys
+from html import unescape
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -181,6 +182,23 @@ def head(meta, page, lang, fr):
 """
 
 
+FAQ_ITEM = re.compile(r'<details class="faq__item"[^>]*>\s*<summary[^>]*>(.*?)</summary>\s*<p[^>]*>(.*?)</p>|<article class="qa"[^>]*>\s*<h3[^>]*>(.*?)</h3>\s*<p[^>]*>(.*?)</p>', re.S)
+
+
+def faq_ld(html, page, lang):
+    """FAQPage structured data built from the visible questions on the page."""
+    items = []
+    for m in FAQ_ITEM.finditer(html):
+        q, a = (m.group(1), m.group(2)) if m.group(1) else (m.group(3), m.group(4))
+        txt = lambda t: re.sub(r"\s+", " ", unescape(re.sub(r"<[^>]+>", "", t))).strip()
+        items.append({"@type": "Question", "name": txt(q), "acceptedAnswer": {"@type": "Answer", "text": txt(a)}})
+    if not items:
+        return ""
+    ld = {"@context": "https://schema.org", "@type": "FAQPage", "@id": url_for(page, lang) + "#faq",
+          "inLanguage": lang, "mainEntity": items}
+    return f'\n<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>'
+
+
 def main():
     header_tpl = (SRC / "partials/header.html").read_text(encoding="utf-8")
     footer_tpl = (SRC / "partials/footer.html").read_text(encoding="utf-8")
@@ -225,6 +243,7 @@ def main():
             html = translate(html, lang)
             html = clean_links(html)
             prefix = "../" if lang == "fr" else ""
+            html += faq_ld(html, page, lang)
             out = head(meta, page, lang, fr) + html + f'\n<script src="{prefix}js/main.js?v={ASSET_V}" defer></script>\n</body>\n</html>\n'
             (ROOT / ("fr/" + page if lang == "fr" else page)).write_text(out, encoding="utf-8")
 
