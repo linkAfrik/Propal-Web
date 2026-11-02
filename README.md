@@ -71,12 +71,6 @@ Autres points :
 - Images : les visuels des secteurs, de l'accueil, des pages International et Contact sont extraits de la VSL. Les visuels de la page Local Companies et de la page About (hors photo de groupe, fournie par COPHIR) ont été générés via ElevenLabs (modèle Seedream 5 Pro). Aucune image n'est réutilisée d'une section à l'autre.
 - Vidéo : `assets/video/cophir-vsl.mp4` (13 Mo) est la VSL v15 recompressée, dont la bande de sous-titres incrustés a été retirée par recadrage. Les sous-titres français sont dans `assets/video/cophir-vsl.fr.vtt`, affichés en grand par le lecteur. Si la VSL change, il faut régénérer les deux fichiers.
 
-## Sous-domaine ci.cophir.com
+## Page de campagne Côte d'Ivoire
 
-La landing page Côte d'Ivoire est dans `subdomains/ci.cophir.com/`. Elle est publiée par son propre déploiement (`.github/workflows/deploy-ci.yml`) dans un dossier distinct du même hébergement Infomaniak, avec les mêmes secrets SSH que le site principal. Ce dossier est exclu de l'envoi du site principal.
-
-Dossier de destination : la variable `INFOMANIAK_CI_DIR` si elle existe, sinon le dossier voisin de celui du site principal (`sites/cophir.com` donne `sites/ci.cophir.com`). Le déploiement refuse d'écrire dans le dossier du site principal.
-
-Pour que la page soit accessible :
-1. chez Namecheap, ajouter `CNAME ci cophir.com.` ;
-2. dans le Manager Infomaniak, ajouter le site `ci.cophir.com` en le faisant pointer vers ce dossier, puis activer son certificat SSL.
+`services-petroliers-cote-divoire.html` est une page autonome (FR/EN, contact WhatsApp), servie à l'adresse https://www.cophir.com/services-petroliers-cote-divoire. Elle n'est pas générée par `build.py`, n'apparaît ni dans le menu ni dans `sitemap.xml`, et porte une balise `noindex` : seuls ceux qui ont le lien y accèdent. Le numéro WhatsApp et les messages pré-remplis se trouvent dans le bloc `WA_CONFIG`, en haut du fichier.

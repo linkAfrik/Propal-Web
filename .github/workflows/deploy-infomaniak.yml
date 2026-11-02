@@ -59,7 +59,7 @@ jobs:
           # Only site files are sent; sources and tooling stay in the repository.
           # Files removed from the site are not deleted on the server (safe default).
           rsync -az --human-readable --stats \
-            --exclude '.git*' --exclude '.github/' --exclude 'src/' --exclude 'build.py' --exclude 'README.md' --exclude 'subdomains/' \
+            --exclude '.git*' --exclude '.github/' --exclude 'src/' --exclude 'build.py' --exclude 'README.md' \
             -e "ssh -i ~/.ssh/deploy_key -p $PORT -o StrictHostKeyChecking=yes" \
             ./ "$USER@$HOST:$TARGET/"
 
