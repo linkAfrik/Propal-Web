@@ -1,0 +1,77 @@
+# Deploys the ci.cophir.com landing page (subdomains/ci.cophir.com/) to its OWN folder on the
+# same Infomaniak hosting as www.cophir.com. It never touches the main site's folder.
+# Uses the main site's existing settings (secrets INFOMANIAK_SSH_HOST / _USER / _KEY).
+# Target folder: variable INFOMANIAK_CI_DIR if set, otherwise the sibling of the main
+# site folder named ci.cophir.com (e.g. sites/cophir.com -> sites/ci.cophir.com).
+name: Deploy ci.cophir.com
+
+on:
+  push:
+    branches: [main, claude/ci-cophir-subdomain]
+    paths:
+      - 'subdomains/ci.cophir.com/**'
+      - '.github/workflows/deploy-ci.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-ci-cophir
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check configuration
+        id: cfg
+        env:
+          HOST: ${{ secrets.INFOMANIAK_SSH_HOST }}
+          USER: ${{ secrets.INFOMANIAK_SSH_USER }}
+          KEY: ${{ secrets.INFOMANIAK_SSH_KEY }}
+          MAIN_DIR: ${{ vars.INFOMANIAK_TARGET_DIR }}
+          CI_DIR: ${{ vars.INFOMANIAK_CI_DIR }}
+        run: |
+          if [ -z "$HOST" ] || [ -z "$USER" ] || [ -z "$KEY" ]; then
+            echo "Infomaniak SSH settings missing: skipping upload." | tee -a "$GITHUB_STEP_SUMMARY"
+            echo "ready=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          MAIN="${MAIN_DIR%/}"
+          if [ -z "$CI_DIR" ]; then
+            if [ -z "$MAIN" ]; then
+              echo "Neither INFOMANIAK_CI_DIR nor INFOMANIAK_TARGET_DIR is set: skipping upload." | tee -a "$GITHUB_STEP_SUMMARY"
+              echo "ready=false" >> "$GITHUB_OUTPUT"; exit 0
+            fi
+            CI_DIR="$(dirname "$MAIN")/ci.cophir.com"
+          fi
+          CI_DIR="${CI_DIR%/}"
+          # Safety: never write into the main site's folder or anywhere inside it.
+          case "$CI_DIR/" in
+            "$MAIN/"|"$MAIN/"*)
+              echo "Refusing to deploy: '$CI_DIR' is the main site folder or inside it." | tee -a "$GITHUB_STEP_SUMMARY"
+              exit 1 ;;
+          esac
+          echo "dir=$CI_DIR" >> "$GITHUB_OUTPUT"
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v4
+        if: steps.cfg.outputs.ready == 'true'
+
+      - name: Upload over SSH
+        if: steps.cfg.outputs.ready == 'true'
+        env:
+          HOST: ${{ secrets.INFOMANIAK_SSH_HOST }}
+          USER: ${{ secrets.INFOMANIAK_SSH_USER }}
+          KEY: ${{ secrets.INFOMANIAK_SSH_KEY }}
+          PORT: ${{ vars.INFOMANIAK_SSH_PORT || '22' }}
+          DIR: ${{ steps.cfg.outputs.dir }}
+        run: |
+          test -s subdomains/ci.cophir.com/index.html
+          mkdir -p ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$PORT" "$HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          SSH="ssh -i $HOME/.ssh/deploy_key -p $PORT -o StrictHostKeyChecking=yes"
+          $SSH "$USER@$HOST" "mkdir -p '$DIR'"
+          # Only this folder's files are sent; nothing is deleted on the server.
+          rsync -az --human-readable --stats --exclude 'README.md' \
+            -e "$SSH" subdomains/ci.cophir.com/ "$USER@$HOST:$DIR/"
+          echo "Deployed ci.cophir.com to \`$DIR\`" | tee -a "$GITHUB_STEP_SUMMARY"
