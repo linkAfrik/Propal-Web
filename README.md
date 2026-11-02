@@ -70,3 +70,7 @@ Autres points :
 - Liens LinkedIn et réseaux sociaux : aucun fourni, donc aucun affiché.
 - Images : les visuels des secteurs, de l'accueil, des pages International et Contact sont extraits de la VSL. Les visuels de la page Local Companies et de la page About (hors photo de groupe, fournie par COPHIR) ont été générés via ElevenLabs (modèle Seedream 5 Pro). Aucune image n'est réutilisée d'une section à l'autre.
 - Vidéo : `assets/video/cophir-vsl.mp4` (13 Mo) est la VSL v15 recompressée, dont la bande de sous-titres incrustés a été retirée par recadrage. Les sous-titres français sont dans `assets/video/cophir-vsl.fr.vtt`, affichés en grand par le lecteur. Si la VSL change, il faut régénérer les deux fichiers.
+
+## Page de campagne Côte d'Ivoire
+
+`services-petroliers-cote-divoire.html` est une page autonome (FR/EN, contact WhatsApp), servie à l'adresse https://www.cophir.com/services-petroliers-cote-divoire. Elle n'est pas générée par `build.py`, n'apparaît ni dans le menu ni dans `sitemap.xml`, et porte une balise `noindex` : seuls ceux qui ont le lien y accèdent. Le numéro WhatsApp et les messages pré-remplis se trouvent dans le bloc `WA_CONFIG`, en haut du fichier.
